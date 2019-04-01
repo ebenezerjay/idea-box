@@ -10,6 +10,12 @@
 ### IdeaBox Icon: "ideabox" color: #B2A1B1, "triples" #FFFFFF
 ### Button Color "Enabled" background
 
+### Comp Example:
+
+![Comp Example 1](https://i.imgur.com/3avgOpk.jpg)
+![Comp Example 2](https://i.imgur.com/flh0e9S.jpg)
+![Comp Example 3](https://i.imgur.com/NLH3RMH.jpg)
+
 ### How to open 
 
 Download/Clone this repository and open `index.html` in you browser. 
