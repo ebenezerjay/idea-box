@@ -16,8 +16,8 @@ var iconCardClose = document.querySelector('.card-top-icon-close');
 var iconCardUpvote = document.querySelector('.card-bottom-icon-upvote');
 var iconCardDownvote = document.querySelector('.card-bottom-icon-downvote');
 
-var cardsArea = document.querySelector('main')
-var cardTemplate = document.querySelector('template') 
+var cardsArea = document.querySelector('main');
+var cardTemplate = document.querySelector('template'); 
 var cardTitle = document.querySelector('.card-title');
 var cardBody = document.querySelector('.card-body');
 var cardQuality = document.querySelector('.card-bottom-quality');
@@ -32,7 +32,9 @@ inputIdeaBody.addEventListener('input', toggleSaveBtn);
 
 btnSaveIdea.addEventListener('click', createNewIdea);
 
-btnNewQuality.addEventListener('click', createNewQuality)
+btnNewQuality.addEventListener('click', createNewQuality);
+
+// cardsArea.addEventListener('click', cardActions);
 
 /*---------- Functions -----------------*/
 
@@ -72,6 +74,7 @@ function addCardToDOM(idea) {
   cardClone.querySelector('.card-title').innerText = idea.title;
   cardClone.querySelector('.card-body').innerText = idea.body;
   cardClone.querySelector('.card-bottom-quality').innerText = 'swill';
+  cardClone.querySelector('.card-top-icon-remove').addEventListener('click', cardActions);
   getIdeas().forEach(idea => addCardToDOM(idea));
   cardsArea.insertBefore(cardClone, cardsArea.firstChild)
 }
@@ -82,4 +85,40 @@ function toggleSaveBtn() {
   } else {
     btnSaveIdea.disabled = true;
   }
+}
+
+function cardActions(e) {
+  e.preventDefault();
+  if (e.target.matches('.card-top-icon-remove')) {
+    removeCard(e);
+  // }  
+  // if (e.target.matches('.card-top-icon-favorite')) {
+  //   favorite();
+  // }
+  // if (e.target.matches('.card-bottom-icon-upvote')) {
+  //   cardUpvote();
+  // }
+  // if (e.target.matches('.card-bottom-icon-downvote')) {
+  //   cardDownvote();
+  // }
+
+}
+
+function removeCard(e) {
+  var cardFull = document.querySelector('.card');
+  cardFull.parentNode.removeChild(cardFull);
+  // var cardId = e.target.parentNode.parentNode.id;
+  // localStorage.removeItem('id');
+}
+
+// function cardUpvote() {
+
+// }
+
+// function cardDownvote() {
+
+// }
+
+// function favorite() {
+
 }

@@ -60,7 +60,8 @@ li {
 }
 
 li:hover {
-  border-left: 3px solid #f58e72
+  /*border-left: 3px solid #f58e72*/
+  background-color: #D14119;
 }
 
 .aside-form {
@@ -179,6 +180,17 @@ img{
 .card-bottom p {
   margin: 0;
   color: white;
+}
+
+.star-icon {
+  height: 30px;
+  width: 30px;
+  fill: white;
+  margin: 5px 0px 0px 3px;
+}
+
+.star-color:hover, active {
+  fill: orange;
 }
 
 
