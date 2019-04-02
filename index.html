@@ -15,9 +15,9 @@
       <h3 class="aside-small-titles">Filter Starred Ideas</h3>
       <button class="aside-button" id="show-starred-ideas">Show Starred Ideas</button>
     </section>
-    <form class="aside-form">
+    <form class="aside-form flex">
       <h3 class="aside-small-titles">Filter by Quality</h3>
-      <ul>
+      <ul class="flex">
         <li id="quality-select-swill">Swill</li>
         <li id="quality-select-plausible">Plausible</li>
         <li id="quality-select-genius">Genius</li>
@@ -27,15 +27,17 @@
       <button class="aside-button" id="add-new-quality">Add New Quality</button>
     </form>
   </aside>
-  <form class="">
-    <label class="header-label">Title</label>
-    <input type="text" id="idea-title-input">
-    <label class="header-label">Body</label>
-    <textarea id="idea-body-input"></textarea>
-    <button id="idea-btn-save">Save</button>
-    <input type="search" placeholder="Search Ideas" id="idea-search-input">
-  </form>
-  <main>
+  <article class="main-form flex">
+    <form class="flex">
+      <label class="header-label">  Title</label>
+      <input class="main-form-title-input" type="text" id="idea-title-input">
+      <label class="header-label">  Body</label>
+      <textarea class="main-form-body-input" id="idea-body-input "></textarea>
+      <button id="idea-btn-save"> Save</button>
+      <input class="main-form-search-input" type="search" placeholder="Search Ideas" id="idea-search-input">
+    </form>
+  </article>
+  <main class="flex">
     <article class="card"> 
       <section class="card-top">
         <img class="card-top-icon-favorite">
@@ -51,7 +53,6 @@
         <img class="card-bottom-icon-downvote">
       </section>
     </article>
-
     <article class="card">
       <section class="card-top">
         <img class="card-top-icon-favorite">
@@ -67,7 +68,6 @@
         <img class="card-bottom-icon-downvote">
       </section>
     </article>
-
     <article class="card">
       <section class="card-top">
         <img class="card-top-icon-favorite">
