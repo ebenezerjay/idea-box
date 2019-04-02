@@ -34,23 +34,22 @@ btnSaveIdea.addEventListener('click', createNewIdea);
 
 btnNewQuality.addEventListener('click', createNewQuality);
 
-// cardsArea.addEventListener('click', cardActions);
-
 /*---------- Functions -----------------*/
 
 function searchIdeas(e) {
-
+  
 }
 
 function createNewIdea(e) {
+  var ideaArray = JSON.parse(localStorage.getItem('idea-card')) || [];
   e.preventDefault();
-  var ideas = getIdeas();
   var newIdea = new Idea(Date.now(), inputIdeaTitle.value, inputIdeaBody.value);
-  newIdea.saveToStorage(ideas);
-  console.log(newIdea);
-  document.querySelector(".card-add-form").reset()
+  addCardToDOM(newIdea);
+  ideaArray.push(newIdea);
+  newIdea.saveToStorage(ideaArray);
+  document.querySelector(".card-add-form").reset();
   noIdeaDisplay.style.display = 'none';
-  addCardToDOM(newIdea)
+  console.log(ideaArray);
 }
 
 function createNewQuality(e){
@@ -58,17 +57,17 @@ function createNewQuality(e){
   // Not sure what they want us to do here?
 }
 
-function getIdeas(){
-  var ideasString = localStorage.ideas || '[]';
-  return JSON.parse(ideasString);
-}
+// function getIdeas(ideaArray){
+//   var ideasString = localStorage.ideas || '[]';
+//   return JSON.parse(ideasString);
+// }
 
 function storeIdeas(){
   localStorage.ideas = JSON.stringify(ideas);
 }
 
 function addCardToDOM(idea) {
-  var qualities = ['Swill', 'Plausible', 'Genius']
+  var qualities = ['Swill', 'Plausible', 'Genius'];
   var cardClone = cardTemplate.content.cloneNode(true);
   cardClone.querySelector('section').dataset.id = idea.id;
   cardClone.querySelector('.card-title').innerText = idea.title;
@@ -79,7 +78,7 @@ function addCardToDOM(idea) {
   cardsArea.insertBefore(cardClone, cardsArea.firstChild)
 }
 
-function toggleSaveBtn() {
+function toggleSaveBtn(e) {
   if (inputIdeaBody.value && inputIdeaTitle.value != '') {
     btnSaveIdea.disabled = false;
   } else {
@@ -90,7 +89,7 @@ function toggleSaveBtn() {
 function cardActions(e) {
   e.preventDefault();
   if (e.target.matches('.card-top-icon-remove')) {
-    removeCard(e);
+    removeCard();
   // }  
   // if (e.target.matches('.card-top-icon-favorite')) {
   //   favorite();
@@ -104,7 +103,7 @@ function cardActions(e) {
 
 }
 
-function removeCard(e) {
+function removeCard() {
   var cardFull = document.querySelector('.card');
   cardFull.parentNode.removeChild(cardFull);
   // var cardId = e.target.parentNode.parentNode.id;
@@ -119,6 +118,4 @@ function removeCard(e) {
 
 // }
 
-// function favorite() {
-
-}
+// function favorite() {}

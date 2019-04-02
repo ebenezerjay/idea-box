@@ -8,7 +8,9 @@ class Idea {
   }
 
   saveToStorage(ideas){
-    ideas.push(this)
+    // ideas.push(this)
+    localStorage.setItem('idea-card', JSON.stringify(ideas));
+
   }
 
   updateQuality(vote){
