@@ -9,9 +9,39 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-/*---------- Nav -------------------*/
-nav {
+/*---------- Aside -------------------*/
+aside {
+  background-color: #1f1f3d;
+  color: #fff;
+  font-size: 1em;
+}
 
+aside section {
+  border-bottom: 1px solid #353567;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  border-left: 3px solid #1f1f3d;
+}
+
+li:hover {
+  border-left: 3px solid #f58e72
+}
+
+.aside-small-titles {
+  color:#bfbfdd;
+  font-size: .8em;
+}
+
+.aside-button {
+  background-color: #535654;
+  border: 1px solid #353657;
+  color: #e9e9f3;
+  border-radius: 5px;
 }
 
 /*---------- Header ----------------*/
