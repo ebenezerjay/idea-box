@@ -2,22 +2,88 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ideabox triples with Patrick, blank, and blank</title>
+  <title>ideabox redux with Patrick, Ebenezer, and Steve</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,800" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="normalize.css">
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-  <nav>
-    <h1>ideabox<span>triples</span></h1>
-  </nav>
-  <header>
-  </header>
-  <article>
-    <section> 
+  <aside>
+    <h1>IdeaBox Redux</h1>
+    <section>
+      <h3 class="aside-small-titles">Filter Starred Ideas</h3>
+      <button class="aside-button" id="show-starred-ideas">Show Starred Ideas</button>
     </section>
-  </article>
+    <form class="aside-form">
+      <h3 class="aside-small-titles">Filter by Quality</h3>
+      <ul>
+        <li id="quality-select-swill">Swill</li>
+        <li id="quality-select-plausible">Plausible</li>
+        <li id="quality-select-genius">Genius</li>
+      </ul>
+      <label for="new-quality" class="aside-small-titles">New Quality</label>
+      <input name="new-quality" type="text" id="custom-quality-input">
+      <button class="aside-button" id="add-new-quality">Add New Quality</button>
+    </form>
+  </aside>
+  <form class="">
+    <label class="header-label">Title</label>
+    <input type="text" id="idea-title-input">
+    <label class="header-label">Body</label>
+    <textarea id="idea-body-input"></textarea>
+    <button id="idea-btn-save">Save</button>
+    <input type="search" placeholder="Search Ideas" id="idea-search-input">
+  </form>
+  <main>
+    <article class="card"> 
+      <section class="card-top">
+        <img class="card-top-icon-favorite">
+        <img class="card-top-icon-remove">
+      </section>
+      <section class="card-middle">
+        <h2 contenteditable="true" class="card-title">Idea Title</h2>
+        <p contenteditable="true" class="card-body">lorem ipsum dolor sit amet blah blah blaha</p>
+      </section>
+      <section class="card-bottom">
+        <img class="card-bottom-icon-upvote">
+        <p>Quality: <span>whatevs</span></p>
+        <img class="card-bottom-icon-downvote">
+      </section>
+    </article>
+
+    <article class="card">
+      <section class="card-top">
+        <img class="card-top-icon-favorite">
+        <img class="card-top-icon-remove">
+      </section>
+      <section class="card-middle">
+        <h2 contenteditable="true" class="card-title">Idea Title</h2>
+        <p contenteditable="true" class="card-body">lorem ipsum dolor sit amet blah blah blaha</p>
+      </section>
+      <section class="card-bottom">
+        <img class="card-bottom-icon-upvote">
+        <p>Quality: <span>whatevs</span></p>
+        <img class="card-bottom-icon-downvote">
+      </section>
+    </article>
+
+    <article class="card">
+      <section class="card-top">
+        <img class="card-top-icon-favorite">
+        <img class="card-top-icon-remove">
+      </section>
+      <section class="card-middle">
+        <h2 contenteditable="true" class="card-title">Idea Title</h2>
+        <p contenteditable="true" class="card-body">lorem ipsum dolor sit amet blah blah blaha</p>
+      </section>
+      <section class="card-bottom">
+        <img class="card-bottom-icon-upvote">
+        <p>Quality: <span>whatevs</span></p>
+        <img class="card-bottom-icon-downvote">
+      </section>
+    </article>
+  </main>
   <script type="text/javascript" src="idea.js"></script>
   <script type="text/javascript" src="main.js"></script>
 </body>
