@@ -141,6 +141,10 @@ main {
   padding: 20px;
 }
 
+img{
+  width: 30px;
+}
+
 .card {
   flex-direction: column;
   align-items: center;
@@ -152,6 +156,7 @@ main {
 .card-top {
   background-color: #1F1F3D;
   height: 40px;
+  justify-content: space-between;
 }
 
 .card-middle {
@@ -166,6 +171,7 @@ main {
 .card-bottom {
   background-color: #5355A5;
   height: 40px;
+  justify-content: space-between;
 }
 
 .card-bottom p {
