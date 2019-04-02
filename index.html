@@ -38,51 +38,23 @@
     </form>
   </article>
   <main class="flex">
-    <article class="card"> 
-      <section class="card-top">
-        <img class="card-top-icon-favorite">
-        <img class="card-top-icon-remove">
-      </section>
-      <section class="card-middle">
-        <h2 contenteditable="true" class="card-title">Idea Title</h2>
-        <p contenteditable="true" class="card-body">lorem ipsum dolor sit amet blah blah blaha</p>
-      </section>
-      <section class="card-bottom">
-        <img class="card-bottom-icon-upvote">
-        <p>Quality: <span class="card-bottom-quality" value="0">whatevs</span></p>
-        <img class="card-bottom-icon-downvote">
-      </section>
-    </article>
-    <article class="card">
-      <section class="card-top">
-        <img class="card-top-icon-favorite">
-        <img class="card-top-icon-remove">
-      </section>
-      <section class="card-middle">
-        <h2 contenteditable="true" class="card-title">Idea Title</h2>
-        <p contenteditable="true" class="card-body">lorem ipsum dolor sit amet blah blah blaha</p>
-      </section>
-      <section class="card-bottom">
-        <img class="card-bottom-icon-upvote">
-        <p>Quality: <span>whatevs</span></p>
-        <img class="card-bottom-icon-downvote">
-      </section>
-    </article>
-    <article class="card">
-      <section class="card-top">
-        <img class="card-top-icon-favorite">
-        <img class="card-top-icon-remove">
-      </section>
-      <section class="card-middle">
-        <h2 contenteditable="true" class="card-title">Idea Title</h2>
-        <p contenteditable="true" class="card-body">lorem ipsum dolor sit amet blah blah blaha</p>
-      </section>
-      <section class="card-bottom">
-        <img class="card-bottom-icon-upvote">
-        <p>Quality: <span>whatevs</span></p>
-        <img class="card-bottom-icon-downvote">
-      </section>
-    </article>
+    <template>
+      <article class="card">
+        <section class="flex card-top">
+          <img class="card-top-icon-favorite" src="images/star.svg">
+          <img class="card-top-icon-remove" src="images/delete.svg">
+        </section>
+        <section class="card-middle">
+          <h2 contenteditable="true" class="card-title">Idea Title</h2>
+          <p contenteditable="true" class="card-body">lorem ipsum dolor sit amet blah blah blaha</p>
+        </section>
+        <section class="card-bottom flex">
+          <img src="images/upvote.svg" class="card-bottom-icon-upvote">
+          <p>Quality: <span>whatevs</span></p>
+          <img src="images/downvote.svg" class="card-bottom-icon-downvote">
+        </section>
+      </article>
+    </template>
   </main>
   <script type="text/javascript" src="idea.js"></script>
   <script type="text/javascript" src="main.js"></script>
