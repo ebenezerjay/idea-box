@@ -17,7 +17,7 @@ var iconCardUpvote = document.querySelector('.card-bottom-icon-upvote');
 var iconCardDownvote = document.querySelector('.card-bottom-icon-downvote');
 
 var cardsArea = document.querySelector('main');
-var cardTemplate = document.querySelector('template') 
+var cardTemplate = document.querySelector('template'); 
 var cardTitle = document.querySelector('.card-title');
 var cardBody = document.querySelector('.card-body');
 var cardQuality = document.querySelector('.card-bottom-quality');
@@ -73,8 +73,9 @@ function addCardToDOM(idea) {
   cardClone.querySelector('.card-title').innerText = idea.title;
   cardClone.querySelector('.card-body').innerText = idea.body;
   cardClone.querySelector('.card-bottom-quality').innerText = 'swill';
-  // getIdeas().forEach(idea => addCardToDOM(ideas));
-  cardsArea.insertBefore(cardClone, cardsArea.firstChild);
+  cardClone.querySelector('.card-top-icon-remove').addEventListener('click', cardActions);
+  getIdeas().forEach(idea => addCardToDOM(idea));
+  cardsArea.insertBefore(cardClone, cardsArea.firstChild)
 }
 
 function toggleSaveBtn(e) {
@@ -83,5 +84,38 @@ function toggleSaveBtn(e) {
   } else {
     btnSaveIdea.disabled = true;
   }
-  e.preventDefault();
 }
+
+function cardActions(e) {
+  e.preventDefault();
+  if (e.target.matches('.card-top-icon-remove')) {
+    removeCard();
+  // }  
+  // if (e.target.matches('.card-top-icon-favorite')) {
+  //   favorite();
+  // }
+  // if (e.target.matches('.card-bottom-icon-upvote')) {
+  //   cardUpvote();
+  // }
+  // if (e.target.matches('.card-bottom-icon-downvote')) {
+  //   cardDownvote();
+  // }
+
+}
+
+function removeCard() {
+  var cardFull = document.querySelector('.card');
+  cardFull.parentNode.removeChild(cardFull);
+  // var cardId = e.target.parentNode.parentNode.id;
+  // localStorage.removeItem('id');
+}
+
+// function cardUpvote() {
+
+// }
+
+// function cardDownvote() {
+
+// }
+
+// function favorite() {}
