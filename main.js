@@ -16,49 +16,23 @@ var iconCardClose = document.querySelector('.card-top-icon-close');
 var iconCardUpvote = document.querySelector('.card-bottom-icon-upvote');
 var iconCardDownvote = document.querySelector('.card-bottom-icon-downvote');
 
-var ideasArea = document.querySelector('main')
+var cardsArea = document.querySelector('main')
+var cardTemplate = document.querySelector('template') 
 var cardTitle = document.querySelector('.card-title');
 var cardBody = document.querySelector('.card-body');
 var cardQuality = document.querySelector('.card-bottom-quality')
 
-// save button
-// search box
-
-/* on card */
-// down vote
-// up vote
-// delete
-// star
-
-/* on aside */
-// show starred
-// filter by quality
-// new quality input
-// add new quality button
-
 /*---------- Event Listeners -----------*/
 
-// Search box
 inputSearch.addEventListener('input', searchIdeas);
-// title input
 
-inputIdeaTitle.addEventListener('input', toggleSaveBtn)
-inputIdeaBody.addEventListener('input', toggleSaveBtn)
-// body input
-// save button
+inputIdeaTitle.addEventListener('input', toggleSaveBtn);
+inputIdeaBody.addEventListener('input', toggleSaveBtn);
+
 btnSaveIdea.addEventListener('click', createNewIdea);
-// on idea:
-// title
+
 btnNewQuality.addEventListener('click', createNewQuality)
-// content
-// btnShowStarIdeas.addEventListener('click', filterStarIdeas)
-// downvote
 
-// upvote
-// delete
-// star
-
-// 
 /*---------- Functions -----------------*/
 
 function searchIdeas(e) {
@@ -72,6 +46,7 @@ function createNewIdea(e) {
   newIdea.saveToStorage(ideas);
   console.log(newIdea);
   document.querySelector(".card-add-form").reset()
+  addCardToDOM(newIdea)
 }
 
 function createNewQuality(e){
@@ -86,6 +61,17 @@ function getIdeas(){
 
 function storeIdeas(){
   localStorage.ideas = JSON.stringify(ideas);
+}
+
+function addCardToDOM(idea) {
+  var qualities = ['Swill', 'Plausible', 'Genius']
+  var cardClone = cardTemplate.content.cloneNode(true);
+  cardClone.querySelector('section').dataset.id = idea.id;
+  cardClone.querySelector('.card-title').innerText = idea.title;
+  cardClone.querySelector('.card-body').innerText = idea.body;
+  cardClone.querySelector('.card-bottom-quality').innerText = 'swill';
+  getIdeas().forEach(idea => addCardToDOM(idea));
+  cardsArea.insertBefore(cardClone, cardsArea.firstChild)
 }
 
 function toggleSaveBtn() {
