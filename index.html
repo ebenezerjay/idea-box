@@ -27,12 +27,12 @@
       <button class="aside-button" id="add-new-quality">Add New Quality</button>
     </form>
   </aside>
-  <form class="">
+  <form class="card-add-form">
     <label class="header-label">Title</label>
     <input type="text" id="idea-title-input">
     <label class="header-label">Body</label>
     <textarea id="idea-body-input"></textarea>
-    <button id="idea-btn-save">Save</button>
+    <button id="idea-btn-save" disabled="">Save</button>
     <input type="search" placeholder="Search Ideas" id="idea-search-input">
   </form>
   <main>
@@ -47,7 +47,7 @@
       </section>
       <section class="card-bottom">
         <img class="card-bottom-icon-upvote">
-        <p>Quality: <span>whatevs</span></p>
+        <p>Quality: <span class="card-bottom-quality" value="0">whatevs</span></p>
         <img class="card-bottom-icon-downvote">
       </section>
     </article>

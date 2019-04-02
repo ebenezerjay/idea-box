@@ -19,6 +19,7 @@ var iconCardDownvote = document.querySelector('.card-bottom-icon-downvote');
 var ideasArea = document.querySelector('main')
 var cardTitle = document.querySelector('.card-title');
 var cardBody = document.querySelector('.card-body');
+var cardQuality = document.querySelector('.card-bottom-quality')
 
 // save button
 // search box
@@ -40,6 +41,9 @@ var cardBody = document.querySelector('.card-body');
 // Search box
 inputSearch.addEventListener('input', searchIdeas);
 // title input
+
+inputIdeaTitle.addEventListener('input', toggleSaveBtn)
+inputIdeaBody.addEventListener('input', toggleSaveBtn)
 // body input
 // save button
 btnSaveIdea.addEventListener('click', createNewIdea);
@@ -67,6 +71,7 @@ function createNewIdea(e) {
   var newIdea = new Idea(Date.now(), inputIdeaTitle.value, inputIdeaBody.value);
   newIdea.saveToStorage(ideas);
   console.log(newIdea);
+  document.querySelector(".card-add-form").reset()
 }
 
 function createNewQuality(e){
@@ -81,4 +86,12 @@ function getIdeas(){
 
 function storeIdeas(){
   localStorage.ideas = JSON.stringify(ideas);
+}
+
+function toggleSaveBtn() {
+  if (inputIdeaBody.value && inputIdeaTitle.value != '') {
+    btnSaveIdea.disabled = false;
+  } else {
+    btnSaveIdea.disabled = true;
+  }
 }
