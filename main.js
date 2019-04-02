@@ -20,7 +20,8 @@ var cardsArea = document.querySelector('main')
 var cardTemplate = document.querySelector('template') 
 var cardTitle = document.querySelector('.card-title');
 var cardBody = document.querySelector('.card-body');
-var cardQuality = document.querySelector('.card-bottom-quality')
+var cardQuality = document.querySelector('.card-bottom-quality');
+var noIdeaDisplay = document.querySelector('.main-no-idea-display');
 
 /*---------- Event Listeners -----------*/
 
@@ -46,6 +47,7 @@ function createNewIdea(e) {
   newIdea.saveToStorage(ideas);
   console.log(newIdea);
   document.querySelector(".card-add-form").reset()
+  noIdeaDisplay.style.display = 'none';
   addCardToDOM(newIdea)
 }
 
