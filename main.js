@@ -1,5 +1,4 @@
 /*---------- Query Selectors -----------*/
-/* on main */
 
 var inputIdeaTitle = document.querySelector('#idea-title-input');
 var inputIdeaBody = document.querySelector('#idea-body-input');
@@ -31,18 +30,25 @@ var ideas = JSON.parse(localStorage.getItem('idea-card')) || [];
 inputSearch.addEventListener('input', searchIdeas);
 inputIdeaTitle.addEventListener('input', toggleSaveBtn);
 inputIdeaBody.addEventListener('input', toggleSaveBtn);
-btnSaveIdea.addEventListener('click', createNewIdea);
-btnNewQuality.addEventListener('click', createNewQuality);
-window.addEventListener('load', loadIdeas);
+btnSaveIdea.addEventListener('click', onSaveBtnPress);
 
+btnNewQuality.addEventListener('click', createNewQuality)
+
+window.addEventListener('load', getIdeas)
 /*---------- Functions -----------------*/
 
 function searchIdeas(e) {
   
 }
-
-function createNewIdea(e) {
+function onSaveBtnPress(e){
   e.preventDefault();
+  createNewIdea();
+  toggleSaveBtn();
+  khalidify();
+}
+
+function createNewIdea() {
+  var ideas = getIdeas();
   var ideaInfo = {id:Date.now(),title: inputIdeaTitle.value, body: inputIdeaBody.value}
   addCardToDOM(ideaInfo);
   var newIdea = new Idea(Date.now(), inputIdeaTitle.value, inputIdeaBody.value);
@@ -72,8 +78,8 @@ function addCardToDOM(idea) {
   var qualities = ['Swill', 'Plausible', 'Genius'];
   var cardClone = cardTemplate.content.cloneNode(true);
   cardClone.querySelector('section').dataset.id = idea.id;
-  cardClone.querySelector('.card-title').innerText = idea.title;
-  cardClone.querySelector('.card-body').innerText = idea.body;
+  cardClone.querySelector('.card-title').innerText = idea.title || 'Idea Title';
+  cardClone.querySelector('.card-body').innerText = idea.body || 'Lorem Ipsum';
   cardClone.querySelector('.card-bottom-quality').innerText = 'swill';
   cardClone.querySelector('.card-top-icon-remove').addEventListener('click', cardActions);
   getIdeas().forEach(idea => addCardToDOM(idea));
@@ -88,6 +94,16 @@ function toggleSaveBtn(e) {
   }
 }
 
+function khalidify(){
+  var body = document.querySelector('.card-body')
+  if(inputIdeaTitle.innerText == 'Khalid'){
+    console.log('whatup')
+    body.forEach(function(){
+      body.innerText +=
+        "Lorem Khaled Ipsum is a major key to success. Bless up. Learning is cool, but knowing is better, and I know the key to success. They never said winning was easy. Some people can’t handle success, I can. Look at the sunset, life is amazing, life is beautiful, life is what you make it. The weather is amazing, walk with me through the pathway of more success. Take this journey with me, Lion! You see the hedges, how I got it shaped up? It’s important to shape up your hedges, it’s like getting a haircut, stay fresh";
+    })
+  }
+}
 function cardActions(e) {
   e.preventDefault();
 }
