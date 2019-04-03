@@ -34,7 +34,12 @@ btnSaveIdea.addEventListener('click', onSaveBtnPress);
 
 btnNewQuality.addEventListener('click', createNewQuality)
 
-window.addEventListener('load', getIdeas)
+window.addEventListener('load', function() {
+  loadIdeas();
+  if (ideas.length != 0) {
+    noIdeaDisplay.style.display = 'none';
+  }
+})
 /*---------- Functions -----------------*/
 
 function searchIdeas(e) {
@@ -45,10 +50,12 @@ function onSaveBtnPress(e){
   createNewIdea();
   toggleSaveBtn();
   khalidify();
+  if (ideas.length >= 1) {
+    noIdeaDisplay.style.display = 'none';
+  }
 }
 
 function createNewIdea() {
-  var ideas = getIdeas();
   var ideaInfo = {id:Date.now(),title: inputIdeaTitle.value, body: inputIdeaBody.value}
   addCardToDOM(ideaInfo);
   var newIdea = new Idea(Date.now(), inputIdeaTitle.value, inputIdeaBody.value);
@@ -64,11 +71,6 @@ function createNewQuality(e){
   // Not sure what they want us to do here?
 }
 
-// function getIdeas(ideaArray){
-//   var ideasString = localStorage.ideas || '[]';
-//   return JSON.parse(ideasString);
-// }
-
 function storeIdeas(){
   localStorage.ideas = JSON.stringify(ideas);
 }
@@ -82,7 +84,6 @@ function addCardToDOM(idea) {
   cardClone.querySelector('.card-body').innerText = idea.body || 'Lorem Ipsum';
   cardClone.querySelector('.card-bottom-quality').innerText = 'swill';
   cardClone.querySelector('.card-top-icon-remove').addEventListener('click', cardActions);
-  getIdeas().forEach(idea => addCardToDOM(idea));
   cardsArea.insertBefore(cardClone, cardsArea.firstChild)
 }
 
@@ -129,9 +130,9 @@ function loadIdeas() {
 //   console.log(editedBody);
 // }
 
-  if (e.target.matches('.card-top-icon-remove')) {
-    removeCard();
-  // }  
+  // if (e.target.matches('.card-top-icon-remove')) {
+  //   removeCard();
+  //  }  
   // if (e.target.matches('.card-top-icon-favorite')) {
   //   favorite();
   // }
@@ -142,7 +143,7 @@ function loadIdeas() {
   //   cardDownvote();
   // }
 
-}
+// }
 
 function removeCard() {
   var cardFull = document.querySelector('.card');
