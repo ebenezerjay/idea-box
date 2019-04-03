@@ -26,6 +26,7 @@ aside {
   color: #fff;
   font-size: 1em;
   grid-area: aside;
+  min-width: 200px;
 }
 
 aside section {
@@ -59,7 +60,8 @@ li {
 }
 
 li:hover {
-  border-left: 3px solid #f58e72
+  /*border-left: 3px solid #f58e72*/
+  background-color: #D14119;
 }
 
 .aside-form {
@@ -131,6 +133,7 @@ li:hover {
 
 .main-form-body-input {
   margin: 10px 0px 20px 0px;
+  height: 90px;
 }
 
 /*---------- Main ---------------*/
@@ -177,6 +180,17 @@ img{
 .card-bottom p {
   margin: 0;
   color: white;
+}
+
+.star-icon {
+  height: 30px;
+  width: 30px;
+  fill: white;
+  margin: 5px 0px 0px 3px;
+}
+
+.star-color:hover, active {
+  fill: orange;
 }
 
 

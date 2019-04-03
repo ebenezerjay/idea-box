@@ -8,7 +8,9 @@ class Idea {
   }
 
   saveToStorage(ideas){
-    ideas.push(this)
+    // ideas.push(this)
+    localStorage.setItem('idea-card', JSON.stringify(ideas));
+
   }
 
   updateQuality(vote){
@@ -35,4 +37,19 @@ class Idea {
     this.splice(index, 1)
   }
 
-}
+//   updateIdea(id, title, body) {
+//     var ideas = this.pullFromStorage();
+//     ideas[this.getIndex(id)].title = title;
+//     ideas[this.getIndex(id)].body = body;
+//     this.saveToStorage(ideas);
+//   }
+
+  getIndex(id) {
+    return this.pullFromStorage().findIndex(idea => idea.id === id);
+	}
+  pullFromStorage() {
+    return JSON.parse(localStorage.getItem('idea-card'));
+  }
+
+
+}  
