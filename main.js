@@ -37,6 +37,16 @@ window.addEventListener('load', loadIdeas);
 
 /*---------- Functions -----------------*/
 
+
+function retrieveMethods(oldIdeas) {
+  ideas = [];
+  for (i = 0; i < oldIdeas.length; i++) {
+    var newIdea = new Idea(oldIdeas[i].id, oldIdeas[i].title, oldIdeas[i].body, oldIdeas[i].star, oldIdeas[i].quality)
+    ideas.push(newIdea);
+  }
+}
+
+
 function searchIdeas(e) {
   
 }
@@ -46,11 +56,16 @@ function createNewIdea(e) {
   var ideaInfo = {id:Date.now(),title: inputIdeaTitle.value, body: inputIdeaBody.value}
   addCardToDOM(ideaInfo);
   var newIdea = new Idea(Date.now(), inputIdeaTitle.value, inputIdeaBody.value);
+  console.log(ideas);
   ideas.push(newIdea);
   newIdea.saveToStorage(ideas);
+  clearCardForms();
+  console.log(ideas);
+}
+
+function clearCardForms() {
   document.querySelector(".card-add-form").reset();
   noIdeaDisplay.style.display = 'none';
-  console.log(ideas);
 }
 
 function createNewQuality(e){
@@ -71,12 +86,12 @@ function addCardToDOM(idea) {
   console.log(idea);
   var qualities = ['Swill', 'Plausible', 'Genius'];
   var cardClone = cardTemplate.content.cloneNode(true);
-  cardClone.querySelector('section').dataset.id = idea.id;
+  cardClone.querySelector('.card').dataset.id = idea.id;
   cardClone.querySelector('.card-title').innerText = idea.title;
   cardClone.querySelector('.card-body').innerText = idea.body;
   cardClone.querySelector('.card-bottom-quality').innerText = 'swill';
   cardClone.querySelector('.card-top-icon-remove').addEventListener('click', cardActions);
-  getIdeas().forEach(idea => addCardToDOM(idea));
+  // getIdeas().forEach(idea => addCardToDOM(idea));
   cardsArea.insertBefore(cardClone, cardsArea.firstChild)
 }
 
@@ -90,6 +105,9 @@ function toggleSaveBtn(e) {
 
 function cardActions(e) {
   e.preventDefault();
+    if (e.target.matches('.card-top-icon-remove')) {
+    removeCard(e);
+  }
 }
 
 function loadIdeas() {
@@ -104,6 +122,7 @@ function loadIdeas() {
       addCardToDOM(ideas[i]);
       }
     }
+  retrieveMethods(ideas);
 }
 
 // function editBody(e) {
@@ -113,35 +132,14 @@ function loadIdeas() {
 //   console.log(editedBody);
 // }
 
-  if (e.target.matches('.card-top-icon-remove')) {
-    removeCard();
-  // }  
-  // if (e.target.matches('.card-top-icon-favorite')) {
-  //   favorite();
-  // }
-  // if (e.target.matches('.card-bottom-icon-upvote')) {
-  //   cardUpvote();
-  // }
-  // if (e.target.matches('.card-bottom-icon-downvote')) {
-  //   cardDownvote();
-  // }
-
+function removeCard(e) {
+  var cardFull = e.target.parentNode.parentNode;
+  var cardId = e.target.parentNode.parentNode.getAttribute('data-id');
+  var parsedId = parseInt(cardId);
+  var targetIdea = ideas.find(function(idea) {
+    return idea.id === parsedId;
+  });
+  var ideaIndex = ideas.indexOf(targetIdea);
+  e.target.parentNode.parentNode.parentNode.removeChild(cardFull);
+  targetIdea.deleteFromStorage(ideaIndex);
 }
-
-function removeCard() {
-  var cardFull = document.querySelector('.card');
-  cardFull.parentNode.removeChild(cardFull);
-  // var cardId = e.target.parentNode.parentNode.id;
-  // localStorage.removeItem('id');
-}
-
-// function cardUpvote() {
-
-// }
-
-// function cardDownvote() {
-
-// }
-
-// function favorite() {}
-
