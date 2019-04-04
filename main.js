@@ -36,9 +36,7 @@ btnNewQuality.addEventListener('click', createNewQuality)
 
 window.addEventListener('load', function() {
   loadIdeas();
-  if (ideas.length != 0) {
-    noIdeaDisplay.style.display = 'none';
-  }
+  hideEmptyMessage();
 })
 /*---------- Functions -----------------*/
 
@@ -48,6 +46,15 @@ function retrieveMethods(oldIdeas) {
   for (i = 0; i < oldIdeas.length; i++) {
     var newIdea = new Idea(oldIdeas[i].id, oldIdeas[i].title, oldIdeas[i].body, oldIdeas[i].star, oldIdeas[i].quality)
     ideas.push(newIdea);
+  }
+}
+
+function hideEmptyMessage () {
+  if (ideas.length == 0) {
+    noIdeaDisplay.style.display = 'block';
+  }
+  if (ideas.length !== 0) {
+    noIdeaDisplay.style.display = 'none';    
   }
 }
 
@@ -61,13 +68,10 @@ function onSaveBtnPress(e){
   createNewIdea();
   toggleSaveBtn();
   khalidify();
-  if (ideas.length >= 1) {
-    noIdeaDisplay.style.display = 'none';
-  }
+  hideEmptyMessage();
 }
 
 function createNewIdea() {
-  // var ideaInfo = {id:Date.now(),title: inputIdeaTitle.value, body: inputIdeaBody.value}
   var newIdea = new Idea(Date.now(), inputIdeaTitle.value, inputIdeaBody.value);
   addCardToDOM(newIdea);
   console.log(ideas);
@@ -79,7 +83,6 @@ function createNewIdea() {
 
 function clearCardForms() {
   document.querySelector(".card-add-form").reset();
-  noIdeaDisplay.style.display = 'none';
 }
 
 function createNewQuality(e){
@@ -160,4 +163,5 @@ function removeCard(e) {
   var ideaIndex = ideas.indexOf(targetIdea);
   e.target.parentNode.parentNode.parentNode.removeChild(cardFull);
   targetIdea.deleteFromStorage(ideaIndex);
+  hideEmptyMessage();
 }
