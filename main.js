@@ -55,6 +55,7 @@ function retrieveMethods(oldIdeas) {
 function searchIdeas(e) {
   
 }
+
 function onSaveBtnPress(e){
   e.preventDefault();
   createNewIdea();
@@ -66,9 +67,9 @@ function onSaveBtnPress(e){
 }
 
 function createNewIdea() {
-  var ideaInfo = {id:Date.now(),title: inputIdeaTitle.value, body: inputIdeaBody.value}
-  addCardToDOM(ideaInfo);
+  // var ideaInfo = {id:Date.now(),title: inputIdeaTitle.value, body: inputIdeaBody.value}
   var newIdea = new Idea(Date.now(), inputIdeaTitle.value, inputIdeaBody.value);
+  addCardToDOM(newIdea);
   console.log(ideas);
   ideas.push(newIdea);
   newIdea.saveToStorage(ideas);

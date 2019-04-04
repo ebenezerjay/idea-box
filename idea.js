@@ -8,7 +8,6 @@ class Idea {
   }
 
   saveToStorage(ideas){
-    // ideas.push(this)
     localStorage.setItem('idea-card', JSON.stringify(ideas));
 
   }
@@ -36,7 +35,7 @@ class Idea {
   deleteFromStorage(index){
     ideas.splice(index, 1)
     this.saveToStorage(ideas);
-
+  }
 //   updateIdea(id, title, body) {
 //     var ideas = this.pullFromStorage();
 //     ideas[this.getIndex(id)].title = title;
