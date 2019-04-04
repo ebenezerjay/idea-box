@@ -3,8 +3,8 @@ class Idea {
     this.id = id;
     this.title = title;
     this.body = body;
-    this.star = false;
     this.quality = quality;
+    this.star = false;
   }
 
   saveToStorage(ideas){
@@ -36,7 +36,6 @@ class Idea {
   deleteFromStorage(index){
     ideas.splice(index, 1)
     this.saveToStorage(ideas);
-  }
 
 //   updateIdea(id, title, body) {
 //     var ideas = this.pullFromStorage();
