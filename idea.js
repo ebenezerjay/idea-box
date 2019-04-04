@@ -34,8 +34,8 @@ class Idea {
   }
 
   deleteFromStorage(index){
-    this.splice(index, 1)
-  }
+    ideas.splice(index, 1)
+    this.saveToStorage(ideas);
 
 //   updateIdea(id, title, body) {
 //     var ideas = this.pullFromStorage();
