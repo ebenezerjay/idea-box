@@ -32,11 +32,9 @@ btnSaveIdea.addEventListener('click', onSaveBtnPress);
 btnNewQuality.addEventListener('click', createNewQuality)
 window.addEventListener('load', function() {
   loadIdeas();
+  hideEmptyMessage();
   var cardBody = document.querySelectorAll('.card-body');
   var cardTitle = document.querySelectorAll('.card-title');
-  if (ideas.length != 0) {
-    noIdeaDisplay.style.display = 'none';
-  }
   for (var i = 0; i < cardBody.length; i++ ) {
     cardBody[i].addEventListener('input', editBody);
   }
@@ -44,6 +42,7 @@ window.addEventListener('load', function() {
   //   cardTitle[i].addEventListener('input', editTitle);
   // }
 });
+
 /*---------- Functions -----------------*/
 
 
@@ -55,24 +54,32 @@ function retrieveMethods(oldIdeas) {
   }
 }
 
+function hideEmptyMessage () {
+  if (ideas.length == 0) {
+    noIdeaDisplay.style.display = 'block';
+  }
+  if (ideas.length !== 0) {
+    noIdeaDisplay.style.display = 'none';    
+  }
+}
+
 
 function searchIdeas(e) {
   
 }
+
 function onSaveBtnPress(e){
   e.preventDefault();
   createNewIdea();
   toggleSaveBtn();
   khalidify();
-  if (ideas.length >= 1) {
-    noIdeaDisplay.style.display = 'none';
-  }
+  hideEmptyMessage();
 }
 
 function createNewIdea() {
-  // var ideaInfo = {id:Date.now(),title: inputIdeaTitle.value, body: inputIdeaBody.value}
   var newIdea = new Idea(Date.now(), inputIdeaTitle.value, inputIdeaBody.value);
   addCardToDOM(newIdea);
+  console.log(ideas);
   ideas.push(newIdea);
   newIdea.saveToStorage(ideas);
   clearCardForms();
@@ -85,7 +92,6 @@ function createNewIdea() {
 
 function clearCardForms() {
   document.querySelector(".card-add-form").reset();
-  // noIdeaDisplay.style.display = 'none';
 }
 
 function createNewQuality(e){
@@ -173,4 +179,5 @@ function removeCard(e) {
   var ideaIndex = ideas.indexOf(targetIdea);
   e.target.parentNode.parentNode.parentNode.removeChild(cardFull);
   targetIdea.deleteFromStorage(ideaIndex);
+  hideEmptyMessage();
 }

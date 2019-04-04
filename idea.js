@@ -35,6 +35,7 @@ class Idea {
     ideas.splice(index, 1);
     this.saveToStorage(ideas);
 	}
+  
   updateBody(id, body) {
 		var ideaArray = this.pullFromStorage();
 		ideaArray[this.getIndex(id)].body = body;
