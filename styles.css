@@ -19,7 +19,10 @@ body {
 .flex {
   display: flex;
 }
-
+.no-outline{
+ outline: 0;
+ border: none; 
+}
 /*---------- Aside -------------------*/
 aside {
   background-color: #1f1f3d;
@@ -49,14 +52,13 @@ h3 {
 ul {
   list-style: none;
   flex-direction: column;
-  margin: 0;
+  margin: 0 -10px;
   padding: 0;
   width: 100%;
 }
 
 li {
   border-left: 3px solid #1f1f3d;
-  margin: 5px 0px;
   font-size: 1em;
   width: 100%;
   height: 30px;
@@ -148,6 +150,7 @@ li:hover {
 .main-form-body-input {
   margin: 10px 0px 20px 0px;
   height: 90px;
+  resize: none;
 }
 
 /*---------- Main ---------------*/
@@ -188,6 +191,7 @@ img{
   padding: 10px;
   flex-direction: column;
   width: 100%:;
+  overflow: scroll;
 }
 
 .card-middle h2 {
@@ -205,6 +209,7 @@ img{
 .card-bottom p {
   margin: 0;
   color: white;
+  align-self: center;
 }
 
 .star-icon {
