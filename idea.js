@@ -1,9 +1,9 @@
 class Idea {
-  constructor(id, title, body, quality=0){
+  constructor(id, title, body, quality){
     this.id = id;
     this.title = title;
     this.body = body;
-    this.quality = quality;
+    this.quality = quality || 0;
 		this.star = false;
   }
 
@@ -41,6 +41,13 @@ class Idea {
 		ideaArray[this.getIndex(id)].body = body;
     this.saveToStorage(ideaArray);
   }
+
+  /*
+  var myProp = "propName"
+  var myObj = {propName: someValue}
+  myObj.propName = "someNewVal"
+  myObj[myProp] = "someNewVal"
+  */
 
 	// updateTitle(id, title) {
 	// 	var ideaArray = this.pullFromStorage();

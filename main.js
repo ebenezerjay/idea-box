@@ -21,7 +21,7 @@ var cardQuality = document.querySelector('.card-bottom-quality');
 var noIdeaDisplay = document.querySelector('.main-no-idea-display');
 
 var ideas = JSON.parse(localStorage.getItem('idea-card')) || [];
-var ideaInstance = new Idea(inputIdeaTitle.value, inputIdeaBody.value);
+// var ideaInstance = new Idea(inputIdeaTitle.value, inputIdeaBody.value);
 
 /*---------- Event Listeners -----------*/
 
