@@ -1,5 +1,5 @@
 class Idea {
-  constructor(id, title, body, quality){
+  constructor(id, title, body, star, quality){
     this.id = id;
     this.title = title;
     this.body = body;
@@ -23,16 +23,16 @@ class Idea {
     if(this.quality < 2){
     this.quality++;
     }
-    ideas[index].quality = this.quality++;
     this.saveToStorage(ideas);
+    // ideas[index].quality = this.quality++;
   }
 
   downvote(index){
     if(this.quality > 0){
       this.quality--;
     }
-      ideas[index].quality = this.quality;
       this.saveToStorage(ideas);
+      // ideas[index].quality = this.quality;
   }
 
   deleteFromStorage(index) {

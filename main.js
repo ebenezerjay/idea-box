@@ -50,7 +50,7 @@ window.addEventListener('load', function() {
 function retrieveMethods(oldIdeas) {
   ideas = [];
   for (i = 0; i < oldIdeas.length; i++) {
-    var newIdea = new Idea(oldIdeas[i].id, oldIdeas[i].title, oldIdeas[i].body, oldIdeas[i].star, oldIdeas[i].quality)
+    var newIdea = new Idea(oldIdeas[i].id, oldIdeas[i].title, oldIdeas[i].body, oldIdeas[i].star, oldIdeas[i].quality);
     ideas.push(newIdea);
   }
 }
@@ -150,7 +150,7 @@ function loadIdeas() {
   if (ideas.length > 10) {
    var slicedIdeaArr = ideas.slice(ideas.length - 10);
     for (var i = 0; i < slicedIdeaArr.length; i++) {
-      addCardToDOM(slicedIdeaArr[i].id, slicedIdeaArr[i].title, slicedIdeaArr[i].body,  slicedIdeaArr[i].quality);
+      addCardToDOM(slicedIdeaArr[i].id, slicedIdeaArr[i].title, slicedIdeaArr[i].body, slicedIdeaArr[i].quality);
     }
   } else {
       for (var i = 0; i < ideas.length; i++) {
