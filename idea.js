@@ -22,12 +22,14 @@ class Idea {
   upvote(){
     if(this.quality < 2){
     this.quality++
+    this.saveToStorage(ideas);
     }
   }
 
   downvote(){
     if(this.quality > 0){
       this.quality--
+      this.saveToStorage(ideas);
     }
   }
 

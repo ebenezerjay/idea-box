@@ -79,7 +79,7 @@ function onSaveBtnPress(e){
 function createNewIdea() {
   var newIdea = new Idea(Date.now(), inputIdeaTitle.value, inputIdeaBody.value);
   addCardToDOM(newIdea);
-  console.log(ideas);
+  // console.log(ideas);
   ideas.push(newIdea);
   newIdea.saveToStorage(ideas);
   clearCardForms();
@@ -87,7 +87,7 @@ function createNewIdea() {
   for (var i = 0; i < cardBody.length; i++ ) {
     cardBody[i].addEventListener('input', editBody);
   }
-  console.log(ideas);
+  // console.log(ideas);
 }
 
 function clearCardForms() {
@@ -104,14 +104,16 @@ function storeIdeas(){
 }
 
 function addCardToDOM(idea) {
-  console.log(idea);
+  // console.log(idea);
   var qualities = ['Swill', 'Plausible', 'Genius'];
   var cardClone = cardTemplate.content.cloneNode(true);
+  var CardQuery = cardClone.querySelector('.card');
   cardClone.querySelector('.card').dataset.id = idea.id;
   cardClone.querySelector('.card-title').innerText = idea.title || 'Idea Title';
   cardClone.querySelector('.card-body').innerText = idea.body || 'Lorem Ipsum';
   cardClone.querySelector('.card-bottom-quality').innerText = 'swill';
-  cardClone.querySelector('.card-top-icon-remove').addEventListener('click', cardActions);
+  // cardClone.querySelector('.card-top-icon-remove').addEventListener('click', cardActions);
+  CardQuery.addEventListener('click', cardActions);
   cardsArea.insertBefore(cardClone, cardsArea.firstChild);
 }
 
@@ -126,7 +128,7 @@ function toggleSaveBtn(e) {
 function khalidify(){
   var body = document.querySelector('.card-body')
   if(inputIdeaTitle.innerText == 'Khalid'){
-    console.log('whatup')
+    // console.log('whatup')
     body.forEach(function(){
       body.innerText +=
         "Lorem Khaled Ipsum is a major key to success. Bless up. Learning is cool, but knowing is better, and I know the key to success. They never said winning was easy. Some people can’t handle success, I can. Look at the sunset, life is amazing, life is beautiful, life is what you make it. The weather is amazing, walk with me through the pathway of more success. Take this journey with me, Lion! You see the hedges, how I got it shaped up? It’s important to shape up your hedges, it’s like getting a haircut, stay fresh";
@@ -135,13 +137,17 @@ function khalidify(){
 }
 function cardActions(e) {
   e.preventDefault();
-    if (e.target.matches('.card-top-icon-remove')) {
+
+  if (e.target.matches('.card-top-icon-remove')) {
     removeCard(e);
+  }
+  if (e.target.matches('.card-bottom-icon')) {
+    voteCard(e);
   }
 }
 
 function loadIdeas() {
-  console.log(ideas);
+  // console.log(ideas);
   if (ideas.length > 10) {
    var slicedIdeaArr = ideas.slice(ideas.length - 10);
     for (var i = 0; i < slicedIdeaArr.length; i++) {
@@ -171,13 +177,32 @@ function editBody(e) {
 
 function removeCard(e) {
   var cardFull = e.target.parentNode.parentNode;
+  var ideaIndex = ideas.indexOf(targetIdea);
   var cardId = e.target.parentNode.parentNode.getAttribute('data-id');
   var parsedId = parseInt(cardId);
   var targetIdea = ideas.find(function(idea) {
     return idea.id === parsedId;
   });
-  var ideaIndex = ideas.indexOf(targetIdea);
   e.target.parentNode.parentNode.parentNode.removeChild(cardFull);
   targetIdea.deleteFromStorage(ideaIndex);
   hideEmptyMessage();
 }
+
+function voteCard(e) {
+  debugger;
+  var cardId = e.target.parentNode.parentNode.getAttribute('data-id');
+  var parsedId = parseInt(cardId);
+  var targetIdea = ideas.find(function(idea) {
+    return idea.id === parsedId;
+  });
+  if (e.target.matches('.card-bottom-icon-upvote')) {
+    targetIdea.upvote();
+  }
+  if (e.target.matches('.card-bottom-icon-downvote')) {
+    targetIdea.downvote();
+  }
+}
+// event listener on click of either vote icon
+// function to determine which icon was clicked
+// call either upvote() or downvote() appropriately
+// 
