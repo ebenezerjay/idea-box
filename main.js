@@ -21,6 +21,7 @@ var cardQuality = document.querySelector('.card-bottom-quality');
 var noIdeaDisplay = document.querySelector('.main-no-idea-display');
 
 var ideas = JSON.parse(localStorage.getItem('idea-card')) || [];
+const qualities = ['Swill', 'Plausible', 'Genius'];
 // var ideaInstance = new Idea(inputIdeaTitle.value, inputIdeaBody.value);
 
 /*---------- Event Listeners -----------*/
@@ -104,15 +105,13 @@ function storeIdeas(){
 }
 
 function addCardToDOM(idea) {
-  // console.log(idea);
-  var qualities = ['Swill', 'Plausible', 'Genius'];
   var cardClone = cardTemplate.content.cloneNode(true);
   var CardQuery = cardClone.querySelector('.card');
+  var qualityName = qualities[idea.quality];
   cardClone.querySelector('.card').dataset.id = idea.id;
   cardClone.querySelector('.card-title').innerText = idea.title || 'Idea Title';
   cardClone.querySelector('.card-body').innerText = idea.body || 'Lorem Ipsum';
-  cardClone.querySelector('.card-bottom-quality').innerText = 'swill';
-  // cardClone.querySelector('.card-top-icon-remove').addEventListener('click', cardActions);
+  cardClone.querySelector('.card-bottom-quality').innerText = qualityName;
   CardQuery.addEventListener('click', cardActions);
   cardsArea.insertBefore(cardClone, cardsArea.firstChild);
 }
@@ -189,20 +188,18 @@ function removeCard(e) {
 }
 
 function voteCard(e) {
-  debugger;
-  var cardId = e.target.parentNode.parentNode.getAttribute('data-id');
-  var parsedId = parseInt(cardId);
-  var targetIdea = ideas.find(function(idea) {
+  const cardId = e.target.parentNode.parentNode.dataset.id;
+  const parsedId = parseInt(cardId);
+  const targetIdea = ideas.find(function(idea) {
     return idea.id === parsedId;
   });
+  let ideaIndex = ideas.indexOf(targetIdea);
+  let qualityName = e.target.parentNode.querySelector('.card-bottom-quality');
   if (e.target.matches('.card-bottom-icon-upvote')) {
-    targetIdea.upvote();
+    targetIdea.upvote(ideaIndex);
   }
   if (e.target.matches('.card-bottom-icon-downvote')) {
-    targetIdea.downvote();
+    targetIdea.downvote(ideaIndex);
   }
+  qualityName.innerText = qualities[ideas[ideaIndex].quality];
 }
-// event listener on click of either vote icon
-// function to determine which icon was clicked
-// call either upvote() or downvote() appropriately
-// 

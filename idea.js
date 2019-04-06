@@ -19,18 +19,20 @@ class Idea {
     }
   }
 
-  upvote(){
+  upvote(index){
     if(this.quality < 2){
-    this.quality++
-    this.saveToStorage(ideas);
+    this.quality++;
     }
+    ideas[index].quality = this.quality++;
+    this.saveToStorage(ideas);
   }
 
-  downvote(){
+  downvote(index){
     if(this.quality > 0){
-      this.quality--
-      this.saveToStorage(ideas);
+      this.quality--;
     }
+      ideas[index].quality = this.quality;
+      this.saveToStorage(ideas);
   }
 
   deleteFromStorage(index) {
