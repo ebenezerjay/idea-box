@@ -21,7 +21,6 @@ var cardQuality = document.querySelector('.card-bottom-quality');
 var noIdeaDisplay = document.querySelector('.main-no-idea-display');
 
 var ideas = JSON.parse(localStorage.getItem('idea-card')) || [];
-// var ideaInstance = new Idea(inputIdeaTitle.value, inputIdeaBody.value);
 
 /*---------- Event Listeners -----------*/
 
@@ -30,17 +29,10 @@ inputIdeaTitle.addEventListener('input', toggleSaveBtn);
 inputIdeaBody.addEventListener('input', toggleSaveBtn);
 btnSaveIdea.addEventListener('click', onSaveBtnPress);
 btnNewQuality.addEventListener('click', createNewQuality)
-window.addEventListener('load', function() {
+window.addEventListener('load', function(e) {
   loadIdeas();
   hideEmptyMessage();
-  var cardBody = document.querySelectorAll('.card-body');
-  var cardTitle = document.querySelectorAll('.card-title');
-  for (var i = 0; i < cardBody.length; i++ ) {
-    cardBody[i].addEventListener('input', editBody);
-  }
-  // for (var i = 0; i < cardTitle.length; i++ ) {
-  //   cardTitle[i].addEventListener('input', editTitle);
-  // }
+  callEditBody();
 });
 
 /*---------- Functions -----------------*/
@@ -63,7 +55,6 @@ function hideEmptyMessage () {
   }
 }
 
-
 function searchIdeas(e) {
   
 }
@@ -83,10 +74,7 @@ function createNewIdea() {
   ideas.push(newIdea);
   newIdea.saveToStorage(ideas);
   clearCardForms();
-  var cardBody = document.querySelectorAll('.card-body');
-  for (var i = 0; i < cardBody.length; i++ ) {
-    cardBody[i].addEventListener('input', editBody);
-  }
+  callEditBody();
   console.log(ideas);
 }
 
@@ -97,10 +85,6 @@ function clearCardForms() {
 function createNewQuality(e){
   e.preventDefault();
   // Not sure what they want us to do here?
-}
-
-function storeIdeas(){
-  localStorage.ideas = JSON.stringify(ideas);
 }
 
 function addCardToDOM(idea) {
@@ -153,6 +137,23 @@ function loadIdeas() {
       }
     }
   retrieveMethods(ideas);
+}
+
+function callEditBody(e) {
+  var cardBody = document.querySelectorAll('.card-body');
+  var cardTitle = document.querySelectorAll('.card-title');
+    for (var i = 0; i < cardBody.length; i++ ) {
+      cardBody[i].addEventListener('input', function(e) { 
+        editBody(e);      
+      });
+    for (var i = 0; i < cardBody.length; i++ ) {
+      cardBody[i].addEventListener('keydown', function(e) {
+        if (e.keyCode == 13) {
+          editBody(e);
+        }
+      });
+      }
+    }
 }
 
 function editBody(e) {
