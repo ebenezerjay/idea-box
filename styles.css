@@ -19,10 +19,21 @@ body {
 .flex {
   display: flex;
 }
+
 .no-outline{
  outline: 0;
  border: none; 
 }
+
+button:hover, :active{
+  cursor: pointer;
+}
+
+:disabled{
+  opacity: .5;
+  cursor: default;
+}
+
 /*---------- Aside -------------------*/
 aside {
   background-color: #1f1f3d;
@@ -58,11 +69,11 @@ ul {
 }
 
 li {
-  border-left: 3px solid #1f1f3d;
+  border-left: 5px solid #1f1f3d;
   font-size: 1em;
-  width: 100%;
+  width: 105%;
   height: 30px;
-  padding: 5px 0px;
+  padding: 5px;
 }
 
 li:hover {
@@ -103,10 +114,6 @@ li:hover {
   width: 90%;
 }
 
-.aside-button:hover, active {
-  cursor: pointer;
-}
-
 /*---------- Form ----------------*/
 .main-form {
   background-color: #A9AAD2;
@@ -129,10 +136,6 @@ li:hover {
   height: 50px;
   outline: none;
   border: none;
-}
-
-.main-form button:hover, active {
-  cursor: pointer;
 }
 
 .main-form input {
@@ -190,8 +193,9 @@ img{
   flex: 6;
   padding: 10px;
   flex-direction: column;
-  width: 100%:;
+  width: 100%;
   overflow: scroll;
+  background-color: #fff;
 }
 
 .card-middle h2 {
