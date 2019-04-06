@@ -21,6 +21,9 @@ var cardQuality = document.querySelector('.card-bottom-quality');
 var noIdeaDisplay = document.querySelector('.main-no-idea-display');
 
 var ideas = JSON.parse(localStorage.getItem('idea-card')) || [];
+const qualities = ['Swill', 'Plausible', 'Genius'];
+// var ideaInstance = new Idea(inputIdeaTitle.value, inputIdeaBody.value);
+
 
 /*---------- Event Listeners -----------*/
 
@@ -41,7 +44,7 @@ window.addEventListener('load', function(e) {
 function retrieveMethods(oldIdeas) {
   ideas = [];
   for (i = 0; i < oldIdeas.length; i++) {
-    var newIdea = new Idea(oldIdeas[i].id, oldIdeas[i].title, oldIdeas[i].body, oldIdeas[i].star, oldIdeas[i].quality)
+    var newIdea = new Idea(oldIdeas[i].id, oldIdeas[i].title, oldIdeas[i].body, oldIdeas[i].star, oldIdeas[i].quality);
     ideas.push(newIdea);
   }
 }
@@ -70,10 +73,14 @@ function onSaveBtnPress(e){
 function createNewIdea() {
   var newIdea = new Idea(Date.now(), inputIdeaTitle.value, inputIdeaBody.value);
   addCardToDOM(newIdea);
-  console.log(ideas);
+  // console.log(ideas);
   ideas.push(newIdea);
   newIdea.saveToStorage(ideas);
   clearCardForms();
+  var cardBody = document.querySelectorAll('.card-body');
+  for (var i = 0; i < cardBody.length; i++ ) {
+    cardBody[i].addEventListener('input', editBody);
+  }
   callEditBody();
   console.log(ideas);
 }
@@ -88,14 +95,14 @@ function createNewQuality(e){
 }
 
 function addCardToDOM(idea) {
-  console.log(idea);
-  var qualities = ['Swill', 'Plausible', 'Genius'];
   var cardClone = cardTemplate.content.cloneNode(true);
+  var CardQuery = cardClone.querySelector('.card');
+  var qualityName = qualities[idea.quality];
   cardClone.querySelector('.card').dataset.id = idea.id;
   cardClone.querySelector('.card-title').innerText = idea.title || 'Idea Title';
   cardClone.querySelector('.card-body').innerText = idea.body || 'Lorem Ipsum';
-  cardClone.querySelector('.card-bottom-quality').innerText = 'swill';
-  cardClone.querySelector('.card-top-icon-remove').addEventListener('click', cardActions);
+  cardClone.querySelector('.card-bottom-quality').innerText = qualityName;
+  CardQuery.addEventListener('click', cardActions);
   cardsArea.insertBefore(cardClone, cardsArea.firstChild);
 }
 
@@ -110,7 +117,7 @@ function toggleSaveBtn(e) {
 function khalidify(){
   var body = document.querySelector('.card-body')
   if(inputIdeaTitle.innerText == 'Khalid'){
-    console.log('whatup')
+    // console.log('whatup')
     body.forEach(function(){
       body.innerText +=
         "Lorem Khaled Ipsum is a major key to success. Bless up. Learning is cool, but knowing is better, and I know the key to success. They never said winning was easy. Some people can’t handle success, I can. Look at the sunset, life is amazing, life is beautiful, life is what you make it. The weather is amazing, walk with me through the pathway of more success. Take this journey with me, Lion! You see the hedges, how I got it shaped up? It’s important to shape up your hedges, it’s like getting a haircut, stay fresh";
@@ -119,17 +126,21 @@ function khalidify(){
 }
 function cardActions(e) {
   e.preventDefault();
-    if (e.target.matches('.card-top-icon-remove')) {
+
+  if (e.target.matches('.card-top-icon-remove')) {
     removeCard(e);
+  }
+  if (e.target.matches('.card-bottom-icon')) {
+    voteCard(e);
   }
 }
 
 function loadIdeas() {
-  console.log(ideas);
+  // console.log(ideas);
   if (ideas.length > 10) {
    var slicedIdeaArr = ideas.slice(ideas.length - 10);
     for (var i = 0; i < slicedIdeaArr.length; i++) {
-      addCardToDOM(slicedIdeaArr[i].id, slicedIdeaArr[i].title, slicedIdeaArr[i].body,  slicedIdeaArr[i].quality);
+      addCardToDOM(slicedIdeaArr[i].id, slicedIdeaArr[i].title, slicedIdeaArr[i].body, slicedIdeaArr[i].quality);
     }
   } else {
       for (var i = 0; i < ideas.length; i++) {
@@ -172,13 +183,30 @@ function editBody(e) {
 
 function removeCard(e) {
   var cardFull = e.target.parentNode.parentNode;
+  var ideaIndex = ideas.indexOf(targetIdea);
   var cardId = e.target.parentNode.parentNode.getAttribute('data-id');
   var parsedId = parseInt(cardId);
   var targetIdea = ideas.find(function(idea) {
     return idea.id === parsedId;
   });
-  var ideaIndex = ideas.indexOf(targetIdea);
   e.target.parentNode.parentNode.parentNode.removeChild(cardFull);
   targetIdea.deleteFromStorage(ideaIndex);
   hideEmptyMessage();
+}
+
+function voteCard(e) {
+  const cardId = e.target.parentNode.parentNode.dataset.id;
+  const parsedId = parseInt(cardId);
+  const targetIdea = ideas.find(function(idea) {
+    return idea.id === parsedId;
+  });
+  let ideaIndex = ideas.indexOf(targetIdea);
+  let qualityName = e.target.parentNode.querySelector('.card-bottom-quality');
+  if (e.target.matches('.card-bottom-icon-upvote')) {
+    targetIdea.upvote(ideaIndex);
+  }
+  if (e.target.matches('.card-bottom-icon-downvote')) {
+    targetIdea.downvote(ideaIndex);
+  }
+  qualityName.innerText = qualities[ideas[ideaIndex].quality];
 }
