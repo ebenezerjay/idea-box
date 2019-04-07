@@ -22,7 +22,6 @@ var noIdeaDisplay = document.querySelector('.main-no-idea-display');
 
 var ideas = JSON.parse(localStorage.getItem('idea-card')) || [];
 const qualities = ['Swill', 'Plausible', 'Genius'];
-// var ideaInstance = new Idea(inputIdeaTitle.value, inputIdeaBody.value);
 
 
 /*---------- Event Listeners -----------*/
@@ -36,6 +35,7 @@ window.addEventListener('load', function(e) {
   loadIdeas();
   hideEmptyMessage();
   callEditBody();
+  toggleStar();
 });
 
 /*---------- Functions -----------------*/
@@ -81,10 +81,8 @@ function createNewIdea() {
   newIdea.saveToStorage(ideas);
   clearCardForms();
   var cardBody = document.querySelectorAll('.card-body');
-  for (var i = 0; i < cardBody.length; i++ ) {
-    cardBody[i].addEventListener('input', editBody);
-  }
   callEditBody();
+  toggleStar();
   console.log(ideas);
 }
 
@@ -168,13 +166,6 @@ function editBody(e) {
   ideaInstance.updateBody(parseInt(findIndex), editedBody);  
 }
 
-// function editTitle(e) {
-//   var findIndex = e.target.parentElement.dataset.id;
-//   var editedTitle = e.target.innerText;
-//   var ideaInstance = new Idea(inputIdeaTitle.value, inputIdeaBody.value);
-//   ideaInstance.updateTitle(parseInt(findIndex), editedTitle);
-// }
-
 function removeCard(e) {
   var cardFull = e.target.parentNode.parentNode;
   var ideaIndex = ideas.indexOf(targetIdea);
@@ -215,4 +206,23 @@ function khalidify() {
         "Lorem Khaled Ipsum is a major key to success. Bless up. Learning is cool, but knowing is better, and I know the key to success. They never said winning was easy. Some people can’t handle success, I can. Look at the sunset, life is amazing, life is beautiful, life is what you make it. The weather is amazing, walk with me through the pathway of more success. Take this journey with me, Lion! You see the hedges, how I got it shaped up? It’s important to shape up your hedges, it’s like getting a haircut, stay fresh";
     })
   }
+}
+
+function toggleStar(e) {
+  var iconCardStar = document.querySelectorAll('.star-icon');
+  for (var i = 0; i < iconCardStar.length; i++) {
+    iconCardStar[i].addEventListener('click', function(e) {
+      starChange(e);
+    });
+  }
+}
+
+function starChange(e) {
+  var starIcon = e.target;
+  if (starIcon.getAttribute('src') === 'images/star.svg') {
+    starIcon.setAttribute('src', 'images/star-active.svg');
+  } else if (starIcon.getAttribute('src') === 'images/star-active.svg') {
+    starIcon.setAttribute('src', 'images/star.svg');
+  }
+  
 }
