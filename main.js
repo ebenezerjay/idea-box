@@ -59,7 +59,10 @@ function hideEmptyMessage () {
 }
 
 function searchIdeas(e) {
-  
+  var searchQuery = inputSearch.value.toLowerCase()
+  var searchResults = ideas.filter(card => card.title.toLowerCase().includes(searchQuery) || card.body.toLowerCase().includes(searchQuery))
+  cardsArea.innerHTML = '';
+  searchResults.forEach(card => addCardToDOM(card))
 }
 
 function onSaveBtnPress(e){
@@ -114,16 +117,7 @@ function toggleSaveBtn(e) {
   }
 }
 
-function khalidify(){
-  var body = document.querySelector('.card-body')
-  if(inputIdeaTitle.innerText == 'Khalid'){
-    // console.log('whatup')
-    body.forEach(function(){
-      body.innerText +=
-        "Lorem Khaled Ipsum is a major key to success. Bless up. Learning is cool, but knowing is better, and I know the key to success. They never said winning was easy. Some people can’t handle success, I can. Look at the sunset, life is amazing, life is beautiful, life is what you make it. The weather is amazing, walk with me through the pathway of more success. Take this journey with me, Lion! You see the hedges, how I got it shaped up? It’s important to shape up your hedges, it’s like getting a haircut, stay fresh";
-    })
-  }
-}
+
 function cardActions(e) {
   e.preventDefault();
 
@@ -209,4 +203,16 @@ function voteCard(e) {
     targetIdea.downvote(ideaIndex);
   }
   qualityName.innerText = qualities[ideas[ideaIndex].quality];
+}
+
+
+function khalidify() {
+  var body = document.querySelector('.card-body')
+  if (inputIdeaTitle.innerText == 'Khalid') {
+    // console.log('whatup')
+    body.forEach(function () {
+      body.innerText +=
+        "Lorem Khaled Ipsum is a major key to success. Bless up. Learning is cool, but knowing is better, and I know the key to success. They never said winning was easy. Some people can’t handle success, I can. Look at the sunset, life is amazing, life is beautiful, life is what you make it. The weather is amazing, walk with me through the pathway of more success. Take this journey with me, Lion! You see the hedges, how I got it shaped up? It’s important to shape up your hedges, it’s like getting a haircut, stay fresh";
+    })
+  }
 }
