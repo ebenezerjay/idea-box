@@ -68,5 +68,14 @@ class Idea {
     return JSON.parse(localStorage.getItem('idea-card'));
   }
 	
+	changeStar(id, star) {
+		if (this.star === false) {
+			this.star = true;
+		}
+		if (this.star === true) {
+			this.star = false;
+		}
+		this.saveToStorage(ideas);
+	}
 
 }  
