@@ -23,29 +23,29 @@ var noIdeaDisplay = document.querySelector('.main-no-idea-display');
 var ideas = JSON.parse(localStorage.getItem('idea-card')) || [];
 const qualities = ['Swill', 'Plausible', 'Genius'];
 
-
 /*---------- Event Listeners -----------*/
 
 inputSearch.addEventListener('input', searchIdeas);
 inputIdeaTitle.addEventListener('input', toggleSaveBtn);
 inputIdeaBody.addEventListener('input', toggleSaveBtn);
 btnSaveIdea.addEventListener('click', onSaveBtnPress);
-btnNewQuality.addEventListener('click', createNewQuality)
-window.addEventListener('load', function(e) {
-  loadIdeas();
-  hideEmptyMessage();
-  callEditBody();
-  toggleStar();
-});
+btnNewQuality.addEventListener('click', createNewQuality);
+window.addEventListener('load', startIdeaBox);
 
 /*---------- Functions -----------------*/
 
+function startIdeaBox(e) {
+  loadIdeas();
+  hideEmptyMessage();
+}
 
 function retrieveMethods(oldIdeas) {
   ideas = [];
   for (i = 0; i < oldIdeas.length; i++) {
     var newIdea = new Idea(oldIdeas[i].id, oldIdeas[i].title, oldIdeas[i].body, oldIdeas[i].star, oldIdeas[i].quality);
     ideas.push(newIdea);
+    console.log(newIdea);
+    console.log(ideas);
   }
 }
 
@@ -76,35 +76,41 @@ function onSaveBtnPress(e){
 function createNewIdea() {
   var newIdea = new Idea(Date.now(), inputIdeaTitle.value, inputIdeaBody.value);
   addCardToDOM(newIdea);
-  // console.log(ideas);
   ideas.push(newIdea);
   newIdea.saveToStorage(ideas);
   clearCardForms();
   var cardBody = document.querySelectorAll('.card-body');
-  callEditBody();
-  toggleStar();
-  console.log(ideas);
 }
 
 function clearCardForms() {
   document.querySelector(".card-add-form").reset();
 }
 
-function createNewQuality(e){
-  e.preventDefault();
-  // Not sure what they want us to do here?
-}
-
 function addCardToDOM(idea) {
   var cardClone = cardTemplate.content.cloneNode(true);
-  var CardQuery = cardClone.querySelector('.card');
+  var cardQuery = cardClone.querySelector('.card');
   var qualityName = qualities[idea.quality];
+  cloneQueries(cardClone, qualityName, idea);
+  cardQuery.addEventListener('click', cardActions);
+  cardQuery.addEventListener('input', editText);
+  cardsArea.insertBefore(cardClone, cardsArea.firstChild);
+}
+
+function cloneQueries(cardClone, qualityName, idea) {
   cardClone.querySelector('.card').dataset.id = idea.id;
   cardClone.querySelector('.card-title').innerText = idea.title || 'Idea Title';
   cardClone.querySelector('.card-body').innerText = idea.body || 'Lorem Ipsum';
   cardClone.querySelector('.card-bottom-quality').innerText = qualityName;
-  CardQuery.addEventListener('click', cardActions);
-  cardsArea.insertBefore(cardClone, cardsArea.firstChild);
+  starCheck(idea, cardClone);
+}
+
+function starCheck(idea, cardClone) {
+  if (idea.star === true) {
+    cardClone.querySelector('.star-icon').setAttribute('src', 'images/star-active.svg');
+  }
+  if (idea.star === false) {
+    cardClone.querySelector('.star-icon').setAttribute('src', 'images/star.svg');
+  }
 }
 
 function toggleSaveBtn(e) {
@@ -118,17 +124,18 @@ function toggleSaveBtn(e) {
 
 function cardActions(e) {
   e.preventDefault();
-
   if (e.target.matches('.card-top-icon-remove')) {
     removeCard(e);
   }
   if (e.target.matches('.card-bottom-icon')) {
     voteCard(e);
   }
+  if (e.target.matches('.star-icon')) {
+    starChange(e);
+  }
 }
 
 function loadIdeas() {
-  // console.log(ideas);
   if (ideas.length > 10) {
    var slicedIdeaArr = ideas.slice(ideas.length - 10);
     for (var i = 0; i < slicedIdeaArr.length; i++) {
@@ -142,28 +149,20 @@ function loadIdeas() {
   retrieveMethods(ideas);
 }
 
-function callEditBody(e) {
-  var cardBody = document.querySelectorAll('.card-body');
-  var cardTitle = document.querySelectorAll('.card-title');
-    for (var i = 0; i < cardBody.length; i++ ) {
-      cardBody[i].addEventListener('input', function(e) { 
-        editBody(e);      
-      });
-    for (var i = 0; i < cardBody.length; i++ ) {
-      cardBody[i].addEventListener('keydown', function(e) {
-        if (e.keyCode == 13) {
-          editBody(e);
-        }
-      });
-      }
-    }
-}
-
-function editBody(e) {
-  var findIndex = e.target.parentElement.parentElement.dataset.id;
-  var editedBody = e.target.innerText;
-  var ideaInstance = new Idea(inputIdeaTitle.value, inputIdeaBody.value);
-  ideaInstance.updateBody(parseInt(findIndex), editedBody);  
+function editText(e) {
+  var editedText = e.target.innerText;
+  var ideaIndex = ideas.indexOf(targetIdea);
+  var cardId = e.target.parentNode.parentNode.getAttribute('data-id');
+  var parsedId = parseInt(cardId);
+  var targetIdea = ideas.find(function(idea) {
+    return idea.id === parsedId;
+  });
+  if (e.target.matches('.card-title')) {
+    targetIdea.updateTitle(targetIdea, editedText)
+  }
+  if (e.target.matches('.card-body')) {
+  targetIdea.updateBody(targetIdea, editedText)     
+  }
 }
 
 function removeCard(e) {
@@ -208,21 +207,19 @@ function khalidify() {
   }
 }
 
-function toggleStar(e) {
-  var iconCardStar = document.querySelectorAll('.star-icon');
-  for (var i = 0; i < iconCardStar.length; i++) {
-    iconCardStar[i].addEventListener('click', function(e) {
-      starChange(e);
-    });
-  }
-}
-
 function starChange(e) {
+  var cardId = e.target.parentNode.parentNode.getAttribute('data-id');
+  var parsedId = parseInt(cardId);
+  var ideaIndex = ideas.indexOf(targetIdea);
+  var targetIdea = ideas.find(function(idea) {
+    return idea.id === parsedId;
+  });
   var starIcon = e.target;
-  if (starIcon.getAttribute('src') === 'images/star.svg') {
+  targetIdea.changeStar();
+  if (targetIdea.star === true) {
     starIcon.setAttribute('src', 'images/star-active.svg');
-  } else if (starIcon.getAttribute('src') === 'images/star-active.svg') {
+  }
+  if (targetIdea.star === false) {
     starIcon.setAttribute('src', 'images/star.svg');
   }
-  
 }
