@@ -4,7 +4,7 @@ class Idea {
     this.title = title;
     this.body = body;
     this.quality = quality || 0;
-		this.star = false;
+		this.star = star || false;
   }
 
   saveToStorage(ideas){
@@ -40,10 +40,11 @@ class Idea {
     this.saveToStorage(ideas);
 	}
   
-  updateBody(id, body) {
-		var ideaArray = this.pullFromStorage();
-		ideaArray[this.getIndex(id)].body = body;
-    this.saveToStorage(ideaArray);
+  updateBody(idea, editedBody) {
+		// var ideaArray = this.pullFromStorage();
+		// ideaArray[this.getIndex(id)].body = body;
+    idea.body = editedBody;
+    this.saveToStorage(ideas);
   }
 
   /*
@@ -53,11 +54,10 @@ class Idea {
   myObj[myProp] = "someNewVal"
   */
 
-	// updateTitle(id, title) {
-	// 	var ideaArray = this.pullFromStorage();
-	// 	ideaArray[this.getIndex(id)].title = title;
-  //   this.saveToStorage(ideaArray);
-  // }
+	updateTitle(idea, editedTitle) {
+		idea.title = editedTitle;
+    this.saveToStorage(ideas);
+  }
 
 
   getIndex(id) {
@@ -68,13 +68,8 @@ class Idea {
     return JSON.parse(localStorage.getItem('idea-card'));
   }
 	
-	changeStar(id, star) {
-		if (this.star === false) {
-			this.star = true;
-		}
-		if (this.star === true) {
-			this.star = false;
-		}
+	changeStar() {
+		this.star = !this.star;
 		this.saveToStorage(ideas);
 	}
 
