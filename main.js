@@ -21,6 +21,8 @@ var cardTemplate = document.querySelector('template');
 var cardQuality = document.querySelector('.card-bottom-quality');
 var noIdeaDisplay = document.querySelector('.main-no-idea-display');
 
+var qualitiesButtons = document.getElementsByTagName('li');
+
 var ideas = JSON.parse(localStorage.getItem('idea-card')) || [];
 // var hiddenIdeas = []
 const qualities = ['Swill', 'Plausible', 'Genius'];
@@ -35,13 +37,17 @@ btnShow.addEventListener('click', toggleMoreIdeas)
 // btnNewQuality.addEventListener('click', createNewQuality);
 window.addEventListener('load', startIdeaBox);
 
+// liQuality.addEventListener('click', filterByQuality)
+
 /*---------- Functions -----------------*/
 
 function startIdeaBox(e) {
   retrieveMethods(ideas);
   divideIdeas();
   hideEmptyMessage();
+  addLiEvents();
 }
+
 
 function retrieveMethods(oldIdeas) {
   ideas = [];
@@ -60,11 +66,24 @@ function hideEmptyMessage () {
   }
 }
 
-function searchIdeas(e) {
-  var searchQuery = inputSearch.value.toLowerCase()
-  var searchResults = ideas.filter(card => card.title.toLowerCase().includes(searchQuery) || card.body.toLowerCase().includes(searchQuery))
+function addLiEvents() {
+  for (var i = 0; i < qualitiesButtons.length; ++i) {
+    qualitiesButtons[i].addEventListener('click', filterByQuality);
+  }
+}
+
+function filterByQuality(e) {
+  let qualValue = parseInt(e.target.value);
+  let filterResults = ideas.filter(idea => idea.quality === qualValue);
   cardsArea.innerHTML = '';
-  searchResults.forEach(card => addCardToDOM(card))
+  filterResults.forEach(idea => addCardToDOM(idea));
+}
+
+function searchIdeas(e) {
+  var searchQuery = inputSearch.value.toLowerCase();
+  var searchResults = ideas.filter(card => card.title.toLowerCase().includes(searchQuery) || card.body.toLowerCase().includes(searchQuery));
+  cardsArea.innerHTML = '';
+  searchResults.forEach(card => addCardToDOM(card));
 }
 
 function onSaveBtnPress(e){
@@ -167,6 +186,7 @@ function editText(e) {
   var targetIdea = ideas.find(function(idea) {
     return idea.id === parsedId;
   });
+  debugger;
   if (e.target.matches('.card-title')) {
     targetIdea.updateTitle(targetIdea, editedText)
   }
