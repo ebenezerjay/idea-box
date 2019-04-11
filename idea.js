@@ -32,7 +32,6 @@ class Idea {
       this.quality--;
     }
       this.saveToStorage(ideas);
-      // ideas[index].quality = this.quality;
   }
 
   deleteFromStorage(index) {
@@ -41,8 +40,6 @@ class Idea {
 	}
   
   updateBody(idea, editedBody) {
-		// var ideaArray = this.pullFromStorage();
-		// ideaArray[this.getIndex(id)].body = body;
     idea.body = editedBody;
     this.saveToStorage(ideas);
   }
@@ -59,15 +56,6 @@ class Idea {
     this.saveToStorage(ideas);
   }
 
-
-  getIndex(id) {
-    return this.pullFromStorage().findIndex(idea => idea.id === id);
-	}
-
-  pullFromStorage() {
-    return JSON.parse(localStorage.getItem('idea-card'));
-  }
-	
 	changeStar() {
 		this.star = !this.star;
 		this.saveToStorage(ideas);
