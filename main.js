@@ -33,7 +33,7 @@ var qualities = ['Swill', 'Plausible', 'Genius'];
 var noStarDisplay = document.querySelector('.main-no-star-message');
 var qualitiesButtons = document.getElementsByTagName('li');
 var ideas = JSON.parse(localStorage.getItem('idea-card')) || [];
-const qualities = ['Swill', 'Plausible', 'Genius'];
+var qualities = ['Swill', 'Plausible', 'Genius'];
 
 
 /*---------- Event Listeners -----------*/
@@ -288,12 +288,6 @@ function khalidify() {
         element.title = 'DJ KHALID!!!'
         // startIdeaBox()
     });
-  const body = document.querySelector('.card-body')
-  if (inputIdeaTitle.innerText == 'Khalid') {
-    body.forEach(function () {
-      body.innerText +=
-        "Lorem Khaled Ipsum is a major key to success. Bless up. Learning is cool, but knowing is better, and I know the key to success. They never said winning was easy. Some people can’t handle success, I can. Look at the sunset, life is amazing, life is beautiful, life is what you make it. The weather is amazing, walk with me through the pathway of more success. Take this journey with me, Lion! You see the hedges, how I got it shaped up? It’s important to shape up your hedges, it’s like getting a haircut, stay fresh";
-    })
   }
 } 
 
