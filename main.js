@@ -73,15 +73,6 @@ function hideEmptyMessage() {
   }
 }
 
-// function starMessage() {
-//   if (ideas.length!=0) {
-//     noStarDisplay.classList.toggle('hidden');
-//   } 
-//   // else {
-//   //   noStarDisplay.classList.remove('toggle');
-//   // }
-// }
-
 function addLiEvents() {
   for (var i = 0; i < qualitiesButtons.length; ++i) {
     qualitiesButtons[i].addEventListener('click', filterByQuality);
@@ -140,7 +131,6 @@ function createNewQuality(e) {
       inputNewQuality.value
     }</li>`;
     addLiEvents();
-    // pushNewQual(inputNewQuality.value);
   }
   inputNewQuality.value = "";
 }
@@ -186,7 +176,6 @@ function cloneQueries(cardClone, qualityName, idea) {
 function starCheck(idea, cardClone) {
   if (idea.star === true) {
     cardClone.querySelector('.star-icon').setAttribute('src', 'images/star-active.svg');
-    // noStarDisplay.classList.add('toggle');
   }
   if (idea.star === false) {
     cardClone.querySelector('.star-icon').setAttribute('src', 'images/star.svg');
@@ -264,7 +253,6 @@ function removeCard(target) {
   target.parentNode.parentNode.parentNode.removeChild(target.parentNode.parentNode);
   targetIdea.deleteFromStorage(ideaIndex);
   hideEmptyMessage();
-  // starMessage();
 }
 
 function voteCard(target) {
@@ -291,7 +279,6 @@ function khalidify() {
       element.body =
         "Lorem Khaled Ipsum is a major key to success. Bless up. Learning is cool, but knowing is better, and I know the key to success. They never said winning was easy. Some people can’t handle success, I can. Look at the sunset, life is amazing, life is beautiful, life is what you make it. The weather is amazing, walk with me through the pathway of more success. Take this journey with me, Lion! You see the hedges, how I got it shaped up? It’s important to shape up your hedges, it’s like getting a haircut, stay fresh"
         element.title = 'DJ KHALID!!!'
-        // startIdeaBox()
     });
   }
 } 
