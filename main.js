@@ -10,22 +10,25 @@ var btnShowStarIdeas = document.querySelector('#show-starred-ideas');
 var btnNewQuality = document.querySelector('#add-new-quality');
 var btnSaveIdea = document.querySelector('#idea-btn-save');
 var btnShow = document.querySelector('#show-button');
+var btnAddNewQual = document.querySelector('#add-new-quality');
 
 var iconCardStar = document.querySelector('.card-top-icon-favorite');
 var iconCardClose = document.querySelector('.card-top-icon-close');
 var iconCardUpvote = document.querySelector('.card-bottom-icon-upvote');
 var iconCardDownvote = document.querySelector('.card-bottom-icon-downvote');
 
+var qualListContainer = document.querySelector('ul')
+
 var cardsArea = document.querySelector('main');
 var cardTemplate = document.querySelector('template'); 
 var cardQuality = document.querySelector('.card-bottom-quality');
 var noIdeaDisplay = document.querySelector('.main-no-idea-display');
-
+var counter = 3;
 var qualitiesButtons = document.getElementsByTagName('li');
 
 var ideas = JSON.parse(localStorage.getItem('idea-card')) || [];
 // var hiddenIdeas = []
-const qualities = ['Swill', 'Plausible', 'Genius'];
+var qualities = ['Swill', 'Plausible', 'Genius'];
 
 /*---------- Event Listeners -----------*/
 
@@ -34,7 +37,7 @@ inputIdeaTitle.addEventListener('input', toggleSaveBtn);
 inputIdeaBody.addEventListener('input', toggleSaveBtn);
 btnSaveIdea.addEventListener('click', onSaveBtnPress);
 btnShow.addEventListener('click', toggleMoreIdeas)
-// btnNewQuality.addEventListener('click', createNewQuality);
+btnAddNewQual.addEventListener('click', createNewQuality);
 window.addEventListener('load', startIdeaBox);
 
 // liQuality.addEventListener('click', filterByQuality)
@@ -47,7 +50,6 @@ function startIdeaBox(e) {
   hideEmptyMessage();
   addLiEvents();
 }
-
 
 function retrieveMethods(oldIdeas) {
   ideas = [];
@@ -92,6 +94,14 @@ function onSaveBtnPress(e){
   toggleSaveBtn();
   khalidify();
   hideEmptyMessage();
+}
+
+function createNewQuality(e){
+  e.preventDefault()
+  var inputNewQuality = document.querySelector("#custom-quality-input");
+  qualListContainer.innerHTML += `<li value="${counter++}" id="quality-select-${counter}">${inputNewQuality.value}</li>`;
+  addLiEvents()
+  qualities.push(`inputNewQuality.value`)
 }
 
 function createNewIdea() {
