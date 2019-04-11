@@ -24,12 +24,17 @@ var cardsArea = document.querySelector('main');
 var cardTemplate = document.querySelector('template'); 
 var cardQuality = document.querySelector('.card-bottom-quality');
 var noIdeaDisplay = document.querySelector('.main-no-idea-display');
+
 var navMenu = document.querySelector('.aside-article');
 var counter = 3;
 var qualitiesButtons = document.getElementsByTagName('li');
-
 var ideas = JSON.parse(localStorage.getItem('idea-card')) || [];
 var qualities = ['Swill', 'Plausible', 'Genius'];
+var noStarDisplay = document.querySelector('.main-no-star-message');
+var qualitiesButtons = document.getElementsByTagName('li');
+var ideas = JSON.parse(localStorage.getItem('idea-card')) || [];
+const qualities = ['Swill', 'Plausible', 'Genius'];
+
 
 /*---------- Event Listeners -----------*/
 
@@ -60,12 +65,19 @@ function retrieveMethods(oldIdeas) {
   }
 }
 
-function hideEmptyMessage () {
-  if (ideas.length == 0) {
-    noIdeaDisplay.style.display = 'block';
+function hideEmptyMessage() {
+  if (ideas.length != 0) {
+    noIdeaDisplay.classList.add('toggle');
+  } else {
+    noIdeaDisplay.classList.remove('toggle');   
   }
-  if (ideas.length !== 0) {
-    noIdeaDisplay.style.display = 'none';    
+}
+
+function starMessage() {
+  if (ideas.length === 0) {
+    noStarDisplay.classList.add('toggle');
+  } else {
+    noStarDisplay.classList.remove('toggle');
   }
 }
 
@@ -117,6 +129,7 @@ function onSaveBtnPress(e){
   createNewIdea();
   toggleSaveBtn();
   hideEmptyMessage();
+  starMessage();
 }
 
 function createNewQuality(e){
@@ -168,6 +181,7 @@ function cloneQueries(cardClone, qualityName, idea) {
 function starCheck(idea, cardClone) {
   if (idea.star === true) {
     cardClone.querySelector('.star-icon').setAttribute('src', 'images/star-active.svg');
+    noStarDisplay.classList.add('toggle');
   }
   if (idea.star === false) {
     cardClone.querySelector('.star-icon').setAttribute('src', 'images/star.svg');
@@ -181,7 +195,6 @@ function toggleSaveBtn(e) {
     btnSaveIdea.disabled = true;
   }
 }
-
 
 function cardActions(e) {
   e.preventDefault();
@@ -246,6 +259,7 @@ function removeCard(target) {
   target.parentNode.parentNode.parentNode.removeChild(target.parentNode.parentNode);
   targetIdea.deleteFromStorage(ideaIndex);
   hideEmptyMessage();
+  starMessage();
 }
 
 function voteCard(target) {
@@ -274,6 +288,12 @@ function khalidify() {
         element.title = 'DJ KHALID!!!'
         // startIdeaBox()
     });
+  const body = document.querySelector('.card-body')
+  if (inputIdeaTitle.innerText == 'Khalid') {
+    body.forEach(function () {
+      body.innerText +=
+        "Lorem Khaled Ipsum is a major key to success. Bless up. Learning is cool, but knowing is better, and I know the key to success. They never said winning was easy. Some people can’t handle success, I can. Look at the sunset, life is amazing, life is beautiful, life is what you make it. The weather is amazing, walk with me through the pathway of more success. Take this journey with me, Lion! You see the hedges, how I got it shaped up? It’s important to shape up your hedges, it’s like getting a haircut, stay fresh";
+    })
   }
 } 
 
@@ -285,6 +305,7 @@ function starChange(target) {
   targetIdea.changeStar();
   if (targetIdea.star === true) {
     target.setAttribute('src', 'images/star-active.svg');
+    noStarDisplay.classList.add('toggle');
   }
   if (targetIdea.star === false) {
     target.setAttribute('src', 'images/star.svg');

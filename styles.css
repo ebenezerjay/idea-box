@@ -193,10 +193,6 @@ img{
   width: 30px;
 }
 
-.main-no-idea-display {
-  display: block;
-}
-
 .card {
   flex-direction: column;
   align-items: center;
