@@ -41,7 +41,6 @@ class Idea {
     this.saveToStorage(ideas);
   }
 
-	
 	changeStar() {
 		this.star = !this.star;
 		this.saveToStorage(ideas);
