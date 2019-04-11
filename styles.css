@@ -19,10 +19,25 @@ body {
 .flex {
   display: flex;
 }
+
 .no-outline{
  outline: 0;
  border: none; 
 }
+
+button:hover, :active{
+  cursor: pointer;
+}
+
+:disabled{
+  opacity: .5;
+  cursor: default;
+}
+
+.toggle {
+  display: none;
+}
+
 /*---------- Aside -------------------*/
 aside {
   background-color: #1f1f3d;
@@ -103,10 +118,6 @@ li:hover {
   width: 90%;
 }
 
-.aside-button:hover, active {
-  cursor: pointer;
-}
-
 /*---------- Form ----------------*/
 .main-form {
   background-color: #A9AAD2;
@@ -118,7 +129,7 @@ li:hover {
 
 .main-form form {
   flex-direction: column;
-  width: 50%;
+  width: 80%;
   margin: 30px 0px;
 }
 
@@ -131,12 +142,13 @@ li:hover {
   border: none;
 }
 
-.main-form button:hover, active {
-  cursor: pointer;
-}
-
 .main-form input {
   height: 50px;
+}
+
+.main-form-input {
+  border: solid 2px #5355A5;
+  border-radius: 3px;
 }
 
 .main-form-title-input {
@@ -149,11 +161,12 @@ li:hover {
 
 .main-form-body-input {
   margin: 10px 0px 20px 0px;
-  height: 90px;
+  height: 150px;
   resize: none;
 }
 
 /*---------- Main ---------------*/
+
 main {
   grid-area: article;
   background-color: #eaeaf4;
@@ -190,8 +203,9 @@ img{
   flex: 6;
   padding: 10px;
   flex-direction: column;
-  width: 300px;
-  overflow: scroll;
+  width: 100%;
+  overflow: auto;
+  background-color: #fff;
 }
 
 .card-middle h2 {
@@ -244,13 +258,37 @@ img{
 }
 
 /*---- Typical Tablet Size ---------*/
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 879px) {
+  main {
+    justify-content: space-around;
+  }
 
+  .main-form form {
+    width: 80%;
+  }
 }
 
 /*---- Large Phones ----------------*/
 @media screen and (max-width: 440px) {
+  body {
+    display: block;
+  }
 
+  .aside-article {
+    display: none;
+  }
+
+  aside h1 {
+    text-align: center;
+  }
+
+  .card {
+    height: 200px;
+  }
+
+  .main-form form {
+    width: 90%;
+  }
 }
 
 /*---- Small Screens ---------------*/

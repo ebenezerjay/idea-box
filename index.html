@@ -11,30 +11,33 @@
 <body>
   <aside>
     <h1>IdeaBox Redux</h1>
+  <article class="aside-article">
     <section>
       <h3 class="aside-small-titles">Filter Starred Ideas</h3>
       <button class="aside-button" id="show-starred-ideas">Show Starred Ideas</button>
     </section>
     <form class="aside-form flex">
       <h3 class="aside-small-titles">Filter by Quality</h3>
-      <ul class="flex">
-        <li id="quality-select-swill">Swill</li>
-        <li id="quality-select-plausible">Plausible</li>
-        <li id="quality-select-genius">Genius</li>
+      <ul class="flex quality-list">
+        <li value="0" id="quality-select-0">Swill</li>
+        <li value="1" id="quality-select-1">Plausible</li>
+        <li value="2" id="quality-select-2">Genius</li>
       </ul>
       <label for="new-quality" class="aside-small-titles">New Quality</label>
-      <input name="new-quality" type="text" id="custom-quality-input" class="no-outline">
+      <input name="new-quality" type="text" id="custom-quality-input" class="no-outline main-form-input">
       <button class="aside-button" id="add-new-quality">Add New Quality</button>
     </form>
+    <button class="show-button" id="show-button">Show More</button>
+  </article>
   </aside>
   <article class="main-form flex">
     <form class="card-add-form flex">
       <label class="header-label">  Title</label>
-      <input class="main-form-title-input no-outline" type="text" id="idea-title-input">
+      <input class="main-form-title-input no-outline main-form-input" type="text" id="idea-title-input">
       <label class="header-label">  Body</label>
-      <textarea class="main-form-body-input no-outline" id="idea-body-input"></textarea>
+      <textarea class="main-form-body-input no-outline main-form-input" id="idea-body-input"></textarea>
       <button id="idea-btn-save" class="no-outline"disabled=""> Save</button>
-      <input class="main-form-search-input no-outline" type="search" placeholder="Search Ideas" id="idea-search-input">
+      <input class="main-form-search-input no-outline main-form-input" type="search" placeholder="Search Ideas" id="idea-search-input">
     </form>
   </article>
   <main class="flex">
@@ -42,19 +45,17 @@
     <template>
       <article class="card flex">
         <section class="flex card-top">
-          <svg class="star-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.1 15.7">
-            <polygon class="star-color" points="8 2.5 9.6 5.8 13.3 6.3 10.6 8.9 11.3 12.5 8 10.8 4.8 12.5 5.4 8.9 2.8 6.3 6.4 5.8 8 2.5"/>
-          </svg>
+          <img class="star-icon" src="images/star.svg">
           <img class="card-top-icon-remove" src="images/delete.svg">
         </section>
         <section class="card-middle flex">
-          <h2 contenteditable="true" class="card-title">Idea Title</h2>
-          <p contenteditable="true" class="card-body">lorem ipsum dolor sit amet blah blah blaha</p>
+          <h2 contenteditable="true" class="card-title no-outline">Idea Title</h2>
+          <p contenteditable="true" class="card-body no-outline">lorem ipsum dolor sit amet blah blah blaha</p>
         </section>
         <section class="card-bottom flex">
-          <img src="images/upvote.svg" class="card-bottom-icon-upvote">
+          <img src="images/upvote.svg" class="card-bottom-icon card-bottom-icon-upvote">
           <p>Quality: <span class="card-bottom-quality" value ="0">whatevs</span></p>
-          <img src="images/downvote.svg" class="card-bottom-icon-downvote">
+          <img src="images/downvote.svg" class="card-bottom-icon card-bottom-icon-downvote">
         </section>
       </article>
     </template>

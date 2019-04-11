@@ -1,34 +1,28 @@
 class Idea {
-  constructor(id, title, body, quality){
+  constructor(id, title, body, star, quality){
     this.id = id;
     this.title = title;
     this.body = body;
     this.quality = quality || 0;
-		this.star = false;
+		this.star = star || false;
   }
 
   saveToStorage(ideas){
     localStorage.setItem('idea-card', JSON.stringify(ideas));
   }
 
-  updateQuality(vote){
-    if(vote === 'upvote'){
-      this.upvote()
-    }else{
-      this.downvote()
-    }
-  }
-
-  upvote(){
+  upvote(index){
     if(this.quality < 2){
-    this.quality++
+    this.quality++;
     }
+    this.saveToStorage(ideas);
   }
 
-  downvote(){
+  downvote(index){
     if(this.quality > 0){
-      this.quality--
+      this.quality--;
     }
+      this.saveToStorage(ideas);
   }
 
   deleteFromStorage(index) {
@@ -36,33 +30,20 @@ class Idea {
     this.saveToStorage(ideas);
 	}
   
-  updateBody(id, body) {
-		var ideaArray = this.pullFromStorage();
-		ideaArray[this.getIndex(id)].body = body;
-    this.saveToStorage(ideaArray);
+  updateBody(idea, editedBody) {
+    idea.body = editedBody;
+    this.saveToStorage(ideas);
   }
 
-  /*
-  var myProp = "propName"
-  var myObj = {propName: someValue}
-  myObj.propName = "someNewVal"
-  myObj[myProp] = "someNewVal"
-  */
 
-	// updateTitle(id, title) {
-	// 	var ideaArray = this.pullFromStorage();
-	// 	ideaArray[this.getIndex(id)].title = title;
-  //   this.saveToStorage(ideaArray);
-  // }
+	updateTitle(idea, editedTitle) {
+		idea.title = editedTitle;
+    this.saveToStorage(ideas);
+  }
 
-
-  getIndex(id) {
-    return this.pullFromStorage().findIndex(idea => idea.id === id);
+	changeStar() {
+		this.star = !this.star;
+		this.saveToStorage(ideas);
 	}
-
-  pullFromStorage() {
-    return JSON.parse(localStorage.getItem('idea-card'));
-  }
-	
 
 }  
