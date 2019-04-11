@@ -35,15 +35,12 @@ class Idea {
     this.saveToStorage(ideas);
   }
 
-
 	updateTitle(idea, editedTitle) {
 		idea.title = editedTitle;
     this.saveToStorage(ideas);
   }
-
+	
 	changeStar() {
 		this.star = !this.star;
 		this.saveToStorage(ideas);
 	}
-
-}  
