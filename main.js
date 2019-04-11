@@ -11,22 +11,25 @@ var btnNewQuality = document.querySelector('#add-new-quality');
 var btnSaveIdea = document.querySelector('#idea-btn-save');
 var btnShow = document.querySelector('#show-button');
 var btnHamburger = document.querySelector('#hamburger-menu')
+var btnAddNewQual = document.querySelector('#add-new-quality');
 
 var iconCardStar = document.querySelector('.card-top-icon-favorite');
 var iconCardClose = document.querySelector('.card-top-icon-close');
 var iconCardUpvote = document.querySelector('.card-bottom-icon-upvote');
 var iconCardDownvote = document.querySelector('.card-bottom-icon-downvote');
 
+var qualListContainer = document.querySelector('ul')
+
 var cardsArea = document.querySelector('main');
 var cardTemplate = document.querySelector('template'); 
 var cardQuality = document.querySelector('.card-bottom-quality');
 var noIdeaDisplay = document.querySelector('.main-no-idea-display');
 var navMenu = document.querySelector('.aside-article');
+var counter = 3;
 var qualitiesButtons = document.getElementsByTagName('li');
 
 var ideas = JSON.parse(localStorage.getItem('idea-card')) || [];
-// var hiddenIdeas = []
-const qualities = ['Swill', 'Plausible', 'Genius'];
+var qualities = ['Swill', 'Plausible', 'Genius'];
 
 /*---------- Event Listeners -----------*/
 
@@ -35,11 +38,10 @@ inputIdeaTitle.addEventListener('input', toggleSaveBtn);
 inputIdeaBody.addEventListener('input', toggleSaveBtn);
 btnSaveIdea.addEventListener('click', onSaveBtnPress);
 btnShow.addEventListener('click', toggleMoreIdeas)
-// btnNewQuality.addEventListener('click', createNewQuality);
+btnAddNewQual.addEventListener('click', createNewQuality);
 window.addEventListener('load', startIdeaBox);
 btnShowStarIdeas.addEventListener('click', showStars);
 btnHamburger.addEventListener('click', hamburglar);
-// liQuality.addEventListener('click', filterByQuality)
 
 /*---------- Functions -----------------*/
 
@@ -49,7 +51,6 @@ function startIdeaBox(e) {
   hideEmptyMessage();
   addLiEvents();
 }
-
 
 function retrieveMethods(oldIdeas) {
   ideas = [];
@@ -111,13 +112,19 @@ function hamburglar(e) {
   } 
 }
 
-
 function onSaveBtnPress(e){
   e.preventDefault();
   createNewIdea();
   toggleSaveBtn();
-  khalidify();
   hideEmptyMessage();
+}
+
+function createNewQuality(e){
+  e.preventDefault()
+  var inputNewQuality = document.querySelector("#custom-quality-input");
+  qualListContainer.innerHTML += `<li value="${counter++}" id="quality-select-${counter}">${inputNewQuality.value}</li>`;
+  addLiEvents()
+  qualities.push(`inputNewQuality.value`)
 }
 
 function createNewIdea() {
@@ -147,6 +154,7 @@ function addCardToDOM(idea) {
   cardQuery.addEventListener('click', cardActions);
   cardQuery.addEventListener('input', editText);
   cardsArea.insertBefore(cardClone, cardsArea.firstChild);
+  khalidify()
 }
 
 function cloneQueries(cardClone, qualityName, idea) {
@@ -258,13 +266,14 @@ function voteCard(target) {
 
 
 function khalidify() {
-  const body = document.querySelector('.card-body')
-  if (inputIdeaTitle.innerText == 'Khalid') {
-    // console.log('whatup')
-    body.forEach(function () {
-      body.innerText +=
-        "Lorem Khaled Ipsum is a major key to success. Bless up. Learning is cool, but knowing is better, and I know the key to success. They never said winning was easy. Some people can’t handle success, I can. Look at the sunset, life is amazing, life is beautiful, life is what you make it. The weather is amazing, walk with me through the pathway of more success. Take this journey with me, Lion! You see the hedges, how I got it shaped up? It’s important to shape up your hedges, it’s like getting a haircut, stay fresh";
-    })
+  if (inputIdeaTitle.value === 'Khalid') {
+    console.log('DJ KHALID!!')
+    ideas.forEach(element => {
+      element.body =
+        "Lorem Khaled Ipsum is a major key to success. Bless up. Learning is cool, but knowing is better, and I know the key to success. They never said winning was easy. Some people can’t handle success, I can. Look at the sunset, life is amazing, life is beautiful, life is what you make it. The weather is amazing, walk with me through the pathway of more success. Take this journey with me, Lion! You see the hedges, how I got it shaped up? It’s important to shape up your hedges, it’s like getting a haircut, stay fresh"
+        element.title = 'DJ KHALID!!!'
+        // startIdeaBox()
+    });
   }
 } 
 

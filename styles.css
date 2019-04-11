@@ -25,11 +25,12 @@ body {
  border: none; 
 }
 
-button:hover, :active{
+button:hover{
   cursor: pointer;
+  background-color: #D14119;
 }
 
-:disabled{
+button:disabled{
   opacity: .5;
   cursor: default;
 }
@@ -94,6 +95,7 @@ li:hover {
   display: none;
 }
 
+.show-button-conatiner,
 .aside-form {
   border-bottom: 1px solid #353567;
   /*height: 300px;*/
@@ -121,9 +123,10 @@ li:hover {
   background-color: #5356a4;
   border: 1px solid #353567;
   color: #e9e9f3;
-  border-radius: 5px;
+  border-radius: 3px;
   height: 50px;
   width: 90%;
+  margin:10px 0;
 }
 
 /*---------- Form ----------------*/
@@ -305,6 +308,8 @@ img{
 
   .card {
     height: 200px;
+    width:100%;
+    margin: 10px 0;
   }
 
   .main-form form {
