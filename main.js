@@ -32,7 +32,7 @@ inputIdeaTitle.addEventListener('input', toggleSaveBtn);
 inputIdeaBody.addEventListener('input', toggleSaveBtn);
 btnSaveIdea.addEventListener('click', onSaveBtnPress);
 window.addEventListener('load', startIdeaBox);
-
+btnShowStarIdeas.addEventListener('click', showStars);
 // liQuality.addEventListener('click', filterByQuality)
 
 
@@ -56,8 +56,6 @@ function retrieveMethods(oldIdeas) {
   for (i = 0; i < oldIdeas.length; i++) {
     var newIdea = new Idea(oldIdeas[i].id, oldIdeas[i].title, oldIdeas[i].body, oldIdeas[i].star, oldIdeas[i].quality);
     ideas.push(newIdea);
-    // console.log(newIdea);
-    // console.log(ideas);
   }
 }
 
@@ -79,6 +77,20 @@ function addLiEvents() {
 function filterByQuality(e) {
   let qualValue = parseInt(e.target.value);
   let filterResults = ideas.filter(idea => idea.quality === qualValue);
+  cardsArea.innerHTML = '';
+  filterResults.forEach(idea => addCardToDOM(idea));
+}
+
+function showStars() {
+  if(btnShowStarIdeas.innerText === 'Show Starred Ideas'){
+    btnShowStarIdeas.innerText = 'Show All Ideas';
+    var filterResults = ideas.filter(idea => idea.star === true)
+  }else{
+    btnShowStarIdeas.innerText = 'Show Starred Ideas';
+    // var filterResults = ideas.filter(idea => idea.star === false)
+    retrieveMethods();
+    loadIdeas()
+  }
   cardsArea.innerHTML = '';
   filterResults.forEach(idea => addCardToDOM(idea));
 }
@@ -109,6 +121,12 @@ function createNewIdea() {
 
 function clearCardForms() {
   document.querySelector(".card-add-form").reset();
+}
+
+function enterKeyPress(e){
+  if(e.key === 'Enter'){
+  e.target.blur();
+  }
 }
 
 function addCardToDOM(idea) {
@@ -158,6 +176,9 @@ function cardActions(e) {
   if (e.target.matches('.star-icon')) {
     starChange(e);
   }
+  if (e.target.matches('.card-body')){
+    enterKeyPress(e);
+  }
 }
 
 function loadIdeas() {
@@ -182,7 +203,6 @@ function editText(e) {
   var targetIdea = ideas.find(function(idea) {
     return idea.id === parsedId;
   });
-  debugger;
   if (e.target.matches('.card-title')) {
     targetIdea.updateTitle(targetIdea, editedText)
   }
