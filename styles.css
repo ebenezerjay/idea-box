@@ -155,9 +155,13 @@ li:hover {
   margin: 10px 0px 20px 0px;
 }
 
-/*.main-form-search-input {
-  margin-bottom: 20px;
-}*/
+.main-form-search-input {
+  background: url('images/search.svg') no-repeat #fff;
+  background-position-x: -10px;
+  background-position-y: center;
+  background-size: 70px;
+  padding-left: 60px;
+}
 
 .main-form-body-input {
   margin: 10px 0px 20px 0px;
