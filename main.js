@@ -186,7 +186,6 @@ function editText(e) {
   var targetIdea = ideas.find(function(idea) {
     return idea.id === parsedId;
   });
-  debugger;
   if (e.target.matches('.card-title')) {
     targetIdea.updateTitle(targetIdea, editedText)
   }
