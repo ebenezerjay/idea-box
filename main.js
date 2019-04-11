@@ -8,7 +8,8 @@ var inputSearch = document.querySelector('#idea-search-input');
 
 var btnShowStarIdeas = document.querySelector('#show-starred-ideas');
 var btnNewQuality = document.querySelector('#add-new-quality');
-var btnSaveIdea = document.querySelector("#idea-btn-save");
+var btnSaveIdea = document.querySelector('#idea-btn-save');
+var btnShow = document.querySelector('#show-button');
 
 var iconCardStar = document.querySelector('.card-top-icon-favorite');
 var iconCardClose = document.querySelector('.card-top-icon-close');
@@ -23,6 +24,7 @@ var noIdeaDisplay = document.querySelector('.main-no-idea-display');
 var qualitiesButtons = document.getElementsByTagName('li');
 
 var ideas = JSON.parse(localStorage.getItem('idea-card')) || [];
+// var hiddenIdeas = []
 const qualities = ['Swill', 'Plausible', 'Genius'];
 
 /*---------- Event Listeners -----------*/
@@ -31,21 +33,17 @@ inputSearch.addEventListener('input', searchIdeas);
 inputIdeaTitle.addEventListener('input', toggleSaveBtn);
 inputIdeaBody.addEventListener('input', toggleSaveBtn);
 btnSaveIdea.addEventListener('click', onSaveBtnPress);
+btnShow.addEventListener('click', toggleMoreIdeas)
+// btnNewQuality.addEventListener('click', createNewQuality);
 window.addEventListener('load', startIdeaBox);
 
 // liQuality.addEventListener('click', filterByQuality)
 
-
-// function totes(score) {
-//   score..forEach(element => {
-    
-//   });
-  
-// }
 /*---------- Functions -----------------*/
 
 function startIdeaBox(e) {
-  loadIdeas();
+  retrieveMethods(ideas);
+  divideIdeas();
   hideEmptyMessage();
   addLiEvents();
 }
@@ -56,8 +54,6 @@ function retrieveMethods(oldIdeas) {
   for (i = 0; i < oldIdeas.length; i++) {
     var newIdea = new Idea(oldIdeas[i].id, oldIdeas[i].title, oldIdeas[i].body, oldIdeas[i].star, oldIdeas[i].quality);
     ideas.push(newIdea);
-    // console.log(newIdea);
-    // console.log(ideas);
   }
 }
 
@@ -149,36 +145,44 @@ function toggleSaveBtn(e) {
 
 function cardActions(e) {
   e.preventDefault();
-  if (e.target.matches('.card-top-icon-remove')) {
-    removeCard(e);
+  let target = e.target;
+  if (target.matches('.card-top-icon-remove')) {
+    removeCard(target);
   }
-  if (e.target.matches('.card-bottom-icon')) {
-    voteCard(e);
+  if (target.matches('.card-bottom-icon')) {
+    voteCard(target);
   }
-  if (e.target.matches('.star-icon')) {
-    starChange(e);
+  if (target.matches('.star-icon')) {
+    starChange(target);
   }
 }
 
-function loadIdeas() {
-  if (ideas.length > 10) {
-   var slicedIdeaArr = ideas.slice(ideas.length - 10);
-    for (var i = 0; i < slicedIdeaArr.length; i++) {
-      addCardToDOM(slicedIdeaArr[i].id, slicedIdeaArr[i].title, slicedIdeaArr[i].body, slicedIdeaArr[i].quality);
+function divideIdeas() {
+  hiddenIdeas = []
+  ideas.forEach(function(el) {
+    if (ideas.indexOf(el) > 9) {
+      hiddenIdeas.push(el);
+      ideas.splice(0, 1);
+    } else {
+      addCardToDOM(el);
     }
-  } else {
-      for (var i = 0; i < ideas.length; i++) {
-      addCardToDOM(ideas[i]);
-      }
-    }
-  retrieveMethods(ideas);
+  })
+}
+
+function toggleMoreIdeas() {
+  if (btnShow.innerText === 'Show More') {
+    btnShow.innerText = 'Show Less'
+    ideas = ideas.concat(hiddenIdeas);
+  }
+  if (btnShow.innerText === 'Show Less') {
+    btnShow.innerText = 'Show More'
+  }
 }
 
 function editText(e) {
   var editedText = e.target.innerText;
   var ideaIndex = ideas.indexOf(targetIdea);
-  var cardId = e.target.parentNode.parentNode.getAttribute('data-id');
-  var parsedId = parseInt(cardId);
+  var parsedId = parseInt(e.target.parentNode.parentNode.getAttribute('data-id'));
   var targetIdea = ideas.find(function(idea) {
     return idea.id === parsedId;
   });
@@ -191,31 +195,28 @@ function editText(e) {
   }
 }
 
-function removeCard(e) {
-  var cardFull = e.target.parentNode.parentNode;
-  var ideaIndex = ideas.indexOf(targetIdea);
-  var cardId = e.target.parentNode.parentNode.getAttribute('data-id');
-  var parsedId = parseInt(cardId);
-  var targetIdea = ideas.find(function(idea) {
+function removeCard(target) {
+  const parsedId = parseInt(target.parentNode.parentNode.getAttribute('data-id'));
+  const targetIdea = ideas.find(function(idea) {
     return idea.id === parsedId;
   });
-  e.target.parentNode.parentNode.parentNode.removeChild(cardFull);
+  const ideaIndex = ideas.indexOf(targetIdea);
+  target.parentNode.parentNode.parentNode.removeChild(target.parentNode.parentNode);
   targetIdea.deleteFromStorage(ideaIndex);
   hideEmptyMessage();
 }
 
-function voteCard(e) {
-  const cardId = e.target.parentNode.parentNode.dataset.id;
-  const parsedId = parseInt(cardId);
+function voteCard(target) {
+  const parsedId = parseInt(target.parentNode.parentNode.dataset.id);
   const targetIdea = ideas.find(function(idea) {
     return idea.id === parsedId;
   });
-  let ideaIndex = ideas.indexOf(targetIdea);
-  let qualityName = e.target.parentNode.querySelector('.card-bottom-quality');
-  if (e.target.matches('.card-bottom-icon-upvote')) {
+  const ideaIndex = ideas.indexOf(targetIdea);
+  const qualityName = target.parentNode.querySelector('.card-bottom-quality');
+  if (target.matches('.card-bottom-icon-upvote')) {
     targetIdea.upvote(ideaIndex);
   }
-  if (e.target.matches('.card-bottom-icon-downvote')) {
+  if (target.matches('.card-bottom-icon-downvote')) {
     targetIdea.downvote(ideaIndex);
   }
   qualityName.innerText = qualities[ideas[ideaIndex].quality];
@@ -223,7 +224,7 @@ function voteCard(e) {
 
 
 function khalidify() {
-  var body = document.querySelector('.card-body')
+  const body = document.querySelector('.card-body')
   if (inputIdeaTitle.innerText == 'Khalid') {
     // console.log('whatup')
     body.forEach(function () {
@@ -231,21 +232,18 @@ function khalidify() {
         "Lorem Khaled Ipsum is a major key to success. Bless up. Learning is cool, but knowing is better, and I know the key to success. They never said winning was easy. Some people can’t handle success, I can. Look at the sunset, life is amazing, life is beautiful, life is what you make it. The weather is amazing, walk with me through the pathway of more success. Take this journey with me, Lion! You see the hedges, how I got it shaped up? It’s important to shape up your hedges, it’s like getting a haircut, stay fresh";
     })
   }
-}
+} 
 
-function starChange(e) {
-  var cardId = e.target.parentNode.parentNode.getAttribute('data-id');
-  var parsedId = parseInt(cardId);
-  var ideaIndex = ideas.indexOf(targetIdea);
-  var targetIdea = ideas.find(function(idea) {
+function starChange(target) {
+  const parsedId = parseInt(target.parentNode.parentNode.dataset.id);
+  const targetIdea = ideas.find(function(idea) {
     return idea.id === parsedId;
   });
-  var starIcon = e.target;
   targetIdea.changeStar();
   if (targetIdea.star === true) {
-    starIcon.setAttribute('src', 'images/star-active.svg');
+    target.setAttribute('src', 'images/star-active.svg');
   }
   if (targetIdea.star === false) {
-    starIcon.setAttribute('src', 'images/star.svg');
+    target.setAttribute('src', 'images/star.svg');
   }
 }

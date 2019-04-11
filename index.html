@@ -11,6 +11,7 @@
 <body>
   <aside>
     <h1>IdeaBox Redux</h1>
+  <article class="aside-article">
     <section>
       <h3 class="aside-small-titles">Filter Starred Ideas</h3>
       <button class="aside-button" id="show-starred-ideas">Show Starred Ideas</button>
@@ -23,18 +24,20 @@
         <li value="2" id="quality-select-2">Genius</li>
       </ul>
       <label for="new-quality" class="aside-small-titles">New Quality</label>
-      <input name="new-quality" type="text" id="custom-quality-input" class="no-outline">
+      <input name="new-quality" type="text" id="custom-quality-input" class="no-outline main-form-input">
       <button class="aside-button" id="add-new-quality">Add New Quality</button>
     </form>
+    <button class="show-button" id="show-button">Show More</button>
+  </article>
   </aside>
   <article class="main-form flex">
     <form class="card-add-form flex">
       <label class="header-label">  Title</label>
-      <input class="main-form-title-input no-outline" type="text" id="idea-title-input">
+      <input class="main-form-title-input no-outline main-form-input" type="text" id="idea-title-input">
       <label class="header-label">  Body</label>
-      <textarea class="main-form-body-input no-outline" id="idea-body-input"></textarea>
+      <textarea class="main-form-body-input no-outline main-form-input" id="idea-body-input"></textarea>
       <button id="idea-btn-save" class="no-outline"disabled=""> Save</button>
-      <input class="main-form-search-input no-outline" type="search" placeholder="Search Ideas" id="idea-search-input">
+      <input class="main-form-search-input no-outline main-form-input" type="search" placeholder="Search Ideas" id="idea-search-input">
     </form>
   </article>
   <main class="flex">

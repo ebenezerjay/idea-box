@@ -11,20 +11,11 @@ class Idea {
     localStorage.setItem('idea-card', JSON.stringify(ideas));
   }
 
-  updateQuality(vote){
-    if(vote === 'upvote'){
-      this.upvote()
-    }else{
-      this.downvote()
-    }
-  }
-
   upvote(index){
     if(this.quality < 2){
     this.quality++;
     }
     this.saveToStorage(ideas);
-    // ideas[index].quality = this.quality++;
   }
 
   downvote(index){
@@ -44,12 +35,6 @@ class Idea {
     this.saveToStorage(ideas);
   }
 
-  /*
-  var myProp = "propName"
-  var myObj = {propName: someValue}
-  myObj.propName = "someNewVal"
-  myObj[myProp] = "someNewVal"
-  */
 
 	updateTitle(idea, editedTitle) {
 		idea.title = editedTitle;
