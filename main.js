@@ -35,7 +35,6 @@ var qualitiesButtons = document.getElementsByTagName('li');
 var ideas = JSON.parse(localStorage.getItem('idea-card')) || [];
 var qualities = ['Swill', 'Plausible', 'Genius'];
 
-
 /*---------- Event Listeners -----------*/
 
 inputSearch.addEventListener('input', searchIdeas);
@@ -67,19 +66,21 @@ function retrieveMethods(oldIdeas) {
 
 function hideEmptyMessage() {
   if (ideas.length != 0) {
-    noIdeaDisplay.classList.add('toggle');
-  } else {
-    noIdeaDisplay.classList.remove('toggle');   
+    noIdeaDisplay.classList.add('hidden');
+  } 
+  else {
+    noIdeaDisplay.classList.remove('hidden');   
   }
 }
 
-function starMessage() {
-  if (ideas.length === 0) {
-    noStarDisplay.classList.add('toggle');
-  } else {
-    noStarDisplay.classList.remove('toggle');
-  }
-}
+// function starMessage() {
+//   if (ideas.length!=0) {
+//     noStarDisplay.classList.toggle('hidden');
+//   } 
+//   // else {
+//   //   noStarDisplay.classList.remove('toggle');
+//   // }
+// }
 
 function addLiEvents() {
   for (var i = 0; i < qualitiesButtons.length; ++i) {
@@ -129,15 +130,19 @@ function onSaveBtnPress(e){
   createNewIdea();
   toggleSaveBtn();
   hideEmptyMessage();
-  starMessage();
 }
 
-function createNewQuality(e){
-  e.preventDefault()
+function createNewQuality(e) {
+  e.preventDefault();
   var inputNewQuality = document.querySelector("#custom-quality-input");
-  qualListContainer.innerHTML += `<li value="${counter++}" id="quality-select-${counter}">${inputNewQuality.value}</li>`;
-  addLiEvents()
-  qualities.push(`inputNewQuality.value`)
+  if (inputNewQuality.value) {
+    qualListContainer.innerHTML += `<li value="${counter++}" id="quality-select-${counter}">${
+      inputNewQuality.value
+    }</li>`;
+    addLiEvents();
+    // pushNewQual(inputNewQuality.value);
+  }
+  inputNewQuality.value = "";
 }
 
 function createNewIdea() {
@@ -181,7 +186,7 @@ function cloneQueries(cardClone, qualityName, idea) {
 function starCheck(idea, cardClone) {
   if (idea.star === true) {
     cardClone.querySelector('.star-icon').setAttribute('src', 'images/star-active.svg');
-    noStarDisplay.classList.add('toggle');
+    // noStarDisplay.classList.add('toggle');
   }
   if (idea.star === false) {
     cardClone.querySelector('.star-icon').setAttribute('src', 'images/star.svg');
@@ -259,7 +264,7 @@ function removeCard(target) {
   target.parentNode.parentNode.parentNode.removeChild(target.parentNode.parentNode);
   targetIdea.deleteFromStorage(ideaIndex);
   hideEmptyMessage();
-  starMessage();
+  // starMessage();
 }
 
 function voteCard(target) {

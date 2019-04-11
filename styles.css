@@ -35,7 +35,7 @@ button:disabled{
   cursor: default;
 }
 
-.toggle {
+.hidden {
   display: none;
 }
 
