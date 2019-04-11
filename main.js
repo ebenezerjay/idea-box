@@ -10,6 +10,7 @@ var btnShowStarIdeas = document.querySelector('#show-starred-ideas');
 var btnNewQuality = document.querySelector('#add-new-quality');
 var btnSaveIdea = document.querySelector('#idea-btn-save');
 var btnShow = document.querySelector('#show-button');
+var btnHamburger = document.querySelector('#hamburger-menu')
 
 var iconCardStar = document.querySelector('.card-top-icon-favorite');
 var iconCardClose = document.querySelector('.card-top-icon-close');
@@ -20,7 +21,7 @@ var cardsArea = document.querySelector('main');
 var cardTemplate = document.querySelector('template'); 
 var cardQuality = document.querySelector('.card-bottom-quality');
 var noIdeaDisplay = document.querySelector('.main-no-idea-display');
-
+var navMenu = document.querySelector('.aside-article');
 var qualitiesButtons = document.getElementsByTagName('li');
 
 var ideas = JSON.parse(localStorage.getItem('idea-card')) || [];
@@ -37,6 +38,7 @@ btnShow.addEventListener('click', toggleMoreIdeas)
 // btnNewQuality.addEventListener('click', createNewQuality);
 window.addEventListener('load', startIdeaBox);
 btnShowStarIdeas.addEventListener('click', showStars);
+btnHamburger.addEventListener('click', hamburglar);
 // liQuality.addEventListener('click', filterByQuality)
 
 /*---------- Functions -----------------*/
@@ -85,9 +87,7 @@ function showStars() {
     var filterResults = ideas.filter(idea => idea.star === true)
   }else{
     btnShowStarIdeas.innerText = 'Show Starred Ideas';
-    // var filterResults = ideas.filter(idea => idea.star === false)
-    retrieveMethods();
-    loadIdeas()
+    var filterResults = ideas.filter(idea => idea.star === idea.star)
   }
   cardsArea.innerHTML = '';
   filterResults.forEach(idea => addCardToDOM(idea));
@@ -99,6 +99,21 @@ function searchIdeas(e) {
   cardsArea.innerHTML = '';
   searchResults.forEach(card => addCardToDOM(card));
 }
+
+function hamburglar(e) {
+  if(e.target.classList.contains('open-menu')){
+    e.target.setAttribute('src', 'images/menu-close.svg')
+    e.target.classList.add('close-menu')
+    e.target.classList.remove('open-menu')
+    navMenu.style.display = 'block'
+  }else if(e.target.classList.contains('close-menu')){
+    e.target.setAttribute('src', 'images/menu.svg')
+    e.target.classList.add('open-menu')
+    e.target.classList.remove('close-menu')
+    navMenu.style.display = 'none';
+  } 
+}
+
 
 function onSaveBtnPress(e){
   e.preventDefault();
