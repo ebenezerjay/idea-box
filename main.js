@@ -101,15 +101,12 @@ function searchIdeas(e) {
 }
 
 function hamburglar(e) {
-  if(e.target.classList.contains('open-menu')){
+  e.target.classList.toggle('menu-toggle')
+  if(e.target.classList.contains('menu-toggle')){
     e.target.setAttribute('src', 'images/menu-close.svg')
-    e.target.classList.add('close-menu')
-    e.target.classList.remove('open-menu')
     navMenu.style.display = 'block'
-  }else if(e.target.classList.contains('close-menu')){
+  } else {
     e.target.setAttribute('src', 'images/menu.svg')
-    e.target.classList.add('open-menu')
-    e.target.classList.remove('close-menu')
     navMenu.style.display = 'none';
   } 
 }
