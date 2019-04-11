@@ -10,7 +10,10 @@
 </head>
 <body>
   <aside>
-    <h1>IdeaBox Redux</h1>
+    <div class="header-container flex">
+      <img src="images/menu.svg" id="hamburger-menu" class="menu-toggle">
+      <h1>IdeaBox Redux</h1>
+    </div>
   <article class="aside-article">
     <section>
       <h3 class="aside-small-titles">Filter Starred Ideas</h3>
@@ -27,7 +30,9 @@
       <input name="new-quality" type="text" id="custom-quality-input" class="no-outline main-form-input">
       <button class="aside-button" id="add-new-quality">Add New Quality</button>
     </form>
-    <button class="show-button" id="show-button">Show More</button>
+    <div class="show-button-conatiner">
+      <button class="aside-button" id="show-button">Show More</button>
+    </div>
   </article>
   </aside>
   <article class="main-form flex">
@@ -50,8 +55,8 @@
           <img class="card-top-icon-remove" src="images/delete.svg">
         </section>
         <section class="card-middle flex">
-          <h2 contenteditable="true" class="card-title">Idea Title</h2>
-          <p contenteditable="true" class="card-body">lorem ipsum dolor sit amet blah blah blaha</p>
+          <h2 contenteditable="true" class="card-title no-outline">Idea Title</h2>
+          <p contenteditable="true" class="card-body no-outline">lorem ipsum dolor sit amet blah blah blaha</p>
         </section>
         <section class="card-bottom flex">
           <img src="images/upvote.svg" class="card-bottom-icon card-bottom-icon-upvote">
