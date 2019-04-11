@@ -26,6 +26,7 @@
         <li value="1" id="quality-select-1">Plausible</li>
         <li value="2" id="quality-select-2">Genius</li>
       </ul>
+      <button class="aside-button" id="show-all-qualities" type="submit">Show All Qualities</button>
       <label for="new-quality" class="aside-small-titles">New Quality</label>
       <input name="new-quality" type="text" id="custom-quality-input" class="no-outline main-form-input">
       <button class="aside-button" id="add-new-quality">Add New Quality</button>
@@ -46,8 +47,7 @@
     </form>
   </article>
   <main class="flex">
-    <h5 class="main-no-idea-display">No ideas yet? Add one!</h5>
-    <h5 class="main-no-star-message">Click on a star to add to favorites</h5>
+    <h5 class="main-no-idea-display toggle">No ideas yet? Add one!</h5>
     <template>
       <article class="card flex">
         <section class="flex card-top">

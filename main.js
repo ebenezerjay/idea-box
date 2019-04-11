@@ -33,8 +33,7 @@ var qualities = ['Swill', 'Plausible', 'Genius'];
 var noStarDisplay = document.querySelector('.main-no-star-message');
 var qualitiesButtons = document.getElementsByTagName('li');
 var ideas = JSON.parse(localStorage.getItem('idea-card')) || [];
-const qualities = ['Swill', 'Plausible', 'Genius'];
-
+var qualities = ['Swill', 'Plausible', 'Genius'];
 
 /*---------- Event Listeners -----------*/
 
@@ -67,17 +66,10 @@ function retrieveMethods(oldIdeas) {
 
 function hideEmptyMessage() {
   if (ideas.length != 0) {
-    noIdeaDisplay.classList.add('toggle');
-  } else {
-    noIdeaDisplay.classList.remove('toggle');   
-  }
-}
-
-function starMessage() {
-  if (ideas.length === 0) {
-    noStarDisplay.classList.add('toggle');
-  } else {
-    noStarDisplay.classList.remove('toggle');
+    noIdeaDisplay.classList.add('hidden');
+  } 
+  else {
+    noIdeaDisplay.classList.remove('hidden');   
   }
 }
 
@@ -129,15 +121,18 @@ function onSaveBtnPress(e){
   createNewIdea();
   toggleSaveBtn();
   hideEmptyMessage();
-  starMessage();
 }
 
-function createNewQuality(e){
-  e.preventDefault()
+function createNewQuality(e) {
+  e.preventDefault();
   var inputNewQuality = document.querySelector("#custom-quality-input");
-  qualListContainer.innerHTML += `<li value="${counter++}" id="quality-select-${counter}">${inputNewQuality.value}</li>`;
-  addLiEvents()
-  qualities.push(`inputNewQuality.value`)
+  if (inputNewQuality.value) {
+    qualListContainer.innerHTML += `<li value="${counter++}" id="quality-select-${counter}">${
+      inputNewQuality.value
+    }</li>`;
+    addLiEvents();
+  }
+  inputNewQuality.value = "";
 }
 
 function createNewIdea() {
@@ -181,7 +176,6 @@ function cloneQueries(cardClone, qualityName, idea) {
 function starCheck(idea, cardClone) {
   if (idea.star === true) {
     cardClone.querySelector('.star-icon').setAttribute('src', 'images/star-active.svg');
-    noStarDisplay.classList.add('toggle');
   }
   if (idea.star === false) {
     cardClone.querySelector('.star-icon').setAttribute('src', 'images/star.svg');
@@ -259,7 +253,6 @@ function removeCard(target) {
   target.parentNode.parentNode.parentNode.removeChild(target.parentNode.parentNode);
   targetIdea.deleteFromStorage(ideaIndex);
   hideEmptyMessage();
-  starMessage();
 }
 
 function voteCard(target) {
@@ -286,14 +279,7 @@ function khalidify() {
       element.body =
         "Lorem Khaled Ipsum is a major key to success. Bless up. Learning is cool, but knowing is better, and I know the key to success. They never said winning was easy. Some people can’t handle success, I can. Look at the sunset, life is amazing, life is beautiful, life is what you make it. The weather is amazing, walk with me through the pathway of more success. Take this journey with me, Lion! You see the hedges, how I got it shaped up? It’s important to shape up your hedges, it’s like getting a haircut, stay fresh"
         element.title = 'DJ KHALID!!!'
-        // startIdeaBox()
     });
-  const body = document.querySelector('.card-body')
-  if (inputIdeaTitle.innerText == 'Khalid') {
-    body.forEach(function () {
-      body.innerText +=
-        "Lorem Khaled Ipsum is a major key to success. Bless up. Learning is cool, but knowing is better, and I know the key to success. They never said winning was easy. Some people can’t handle success, I can. Look at the sunset, life is amazing, life is beautiful, life is what you make it. The weather is amazing, walk with me through the pathway of more success. Take this journey with me, Lion! You see the hedges, how I got it shaped up? It’s important to shape up your hedges, it’s like getting a haircut, stay fresh";
-    })
   }
 } 
 

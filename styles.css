@@ -1,6 +1,5 @@
 /*---------- Body ------------------*/
 * {
-  /*border: 1px solid red;*/
   box-sizing: border-box;
   
 }
@@ -35,7 +34,7 @@ button:disabled{
   cursor: default;
 }
 
-.toggle {
+.hidden {
   display: none;
 }
 
@@ -55,7 +54,6 @@ aside section {
 }
 aside h1 {
   border-bottom: 1px solid #353567;
-  /*height: 60px;*/
   font-size: 1.2em;
   padding: 20px 0px 20px 10px;
   margin: 0;
@@ -98,7 +96,6 @@ li:hover {
 .show-button-conatiner,
 .aside-form {
   border-bottom: 1px solid #353567;
-  /*height: 300px;*/
   flex-direction: column;
   align-items: flex-start;
   margin-left: 10px;
@@ -263,11 +260,6 @@ img{
 
 
 /*---------- Media Queries ---------*/
-/*---- Large Tablet/Small Comp -----*/
-@media screen and (max-width: 1024px) {
-
-}
-
 /*---- Typical Tablet Size ---------*/
 @media screen and (max-width: 879px) {
   main {
@@ -311,9 +303,4 @@ img{
   .main-form form {
     width: 90%;
   }
-}
-
-/*---- Small Screens ---------------*/
-@media screen and (max-width: 320px) {
-
 }
